@@ -7,6 +7,7 @@ import { CartProvider } from "react-use-cart";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
+import AuthorizationPage from "./pages/AuthorizationPage"
 import "./App.css";
 import Layout from "./components/layout";
 import '@fontsource/roboto/300.css';
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<LandingPage />} />
           <Route path="venues" element={<HomePage />} />
           <Route path="venues/:id" element={<DetailsPage />} />
+          <Route path="auth" element={<AuthorizationPage/>} />
         </Route>
       </Routes>
         </CartProvider>
