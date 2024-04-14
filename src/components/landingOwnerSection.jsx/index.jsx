@@ -37,8 +37,8 @@ export default function LandingOwnerSection() {
           >
             <CardMedia
               sx={{ height: { xs: "10rem", md: "20rem" } }}
-              image="/images/icons/resort.png"
-              title="a resort with palms"
+              image="/images/icons/owner.png"
+              title="reception desk at a hotel"
             />
             <CardContent>
               <Typography
