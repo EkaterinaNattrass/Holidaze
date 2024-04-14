@@ -9,30 +9,13 @@ export default function LandingImageSection() {
           backgroundSize: "auto 100%",
           backgroundPosition: "center",
           height: "100vh",
-          width: "25%",
+          width: "33%",
         }}
       >
         <Typography
-          variant="h2"
-          sx={{ marginTop: "15rem", textAlign: "center", color:"white" }}
+          sx={{ typography: {xs: "h5", sm: "h4", md: "h2"}, marginTop: "20rem", textAlign: "center", color: "white" }}
         >
           ESCAPE
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          backgroundImage: "url('images/photos/house2.jpg')",
-          backgroundSize: "auto 100%",
-          backgroundPosition: "center",
-          height: "100vh",
-          width: "25%",
-        }}
-      >
-        <Typography
-          variant="h2"
-          sx={{ marginTop: "15rem", textAlign: "center", color:"white" }}
-        >
-          EXPERIENCE
         </Typography>
       </Box>
       <Box
@@ -41,12 +24,12 @@ export default function LandingImageSection() {
           backgroundSize: "auto 100%",
           backgroundPosition: "center",
           height: "100vh",
-          width: "25%",
+          width: "34%",
         }}
       >
         <Typography
           variant="h2"
-          sx={{ marginTop: "15rem", textAlign: "center", color:"white" }}
+          sx={{ typography: {xs: "h5", sm: "h4", md: "h2"}, marginTop: "20rem", textAlign: "center", color: "white" }}
         >
           ENJOY
         </Typography>
@@ -57,12 +40,12 @@ export default function LandingImageSection() {
           backgroundSize: "auto 100%",
           backgroundPosition: "center",
           height: "100vh",
-          width: "25%",
+          width: "33%",
         }}
       >
         <Typography
           variant="h2"
-          sx={{ marginTop: "15rem", textAlign: "center", color:"white" }}
+          sx={{ typography: {xs: "h5", sm: "h4", md: "h2"}, marginTop: "20rem", textAlign: "center", color: "white" }}
         >
           EXPLORE
         </Typography>
