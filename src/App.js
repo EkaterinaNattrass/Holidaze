@@ -12,18 +12,22 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import StoryPage from "./pages/StoryPage";
+import ClientsPage from "./pages/ClientsPage";
+import ServicesPage from "./pages/ServicesPage";
+import ContactsPage from "./pages/ContactsPage";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#F2811D",
+      main: "#F2935C",
       dark: "#F76C1E",
       contrastText: "#fff",
     },
     secondary: {
-      main: "#078C8C",
-      dark: "#066F6F",
-      contrastText: "#fff",
+      main: "#7E9ABF",
+      dark: "#5377A6",
+      contrastText: "black",
     },
   },
 });
@@ -39,6 +43,10 @@ function App() {
               <Route path="venues" element={<HomePage />} />
               <Route path="venues/:id" element={<DetailsPage />} />
               <Route path="auth" element={<AuthorizationPage />} />
+              <Route path="story" element={<StoryPage />} />
+              <Route path="clients" element={<ClientsPage />} />
+              <Route path="services" element={<ServicesPage />} />
+              <Route path="contacts" element={<ContactsPage />} />
             </Route>
           </Routes>
         </CartProvider>

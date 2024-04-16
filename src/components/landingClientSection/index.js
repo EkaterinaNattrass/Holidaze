@@ -19,7 +19,7 @@ export default function LandingTextSection() {
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           justifyContent: { md: "space-around" },
-          alignItems: { xs: "center", md: "center" },
+          alignItems: "center",
           backgroundColor: "#EEEDEB",
         }}
       >
@@ -30,7 +30,7 @@ export default function LandingTextSection() {
             title="a resort with palms"
           />
           <CardContent>
-            <Typography variant="body2" sx={{ fontSize: "1.5rem" }}>
+            <Typography variant="body2" sx={{ fontSize: "1.5rem", fontWeight:'100' }}>
               Browse through our diverse portfolio of holiday venues, each
               offering unique charm and character.
             </Typography>
@@ -44,7 +44,7 @@ export default function LandingTextSection() {
             title="a client at a reception desk"
           />
           <CardContent>
-            <Typography variant="body2" sx={{ fontSize: "1.5rem" }}>
+            <Typography variant="body2" sx={{ fontSize: "1.5rem", fontWeight:'100' }}>
               Our team is committed to providing assistance and ensuring that
               your stay exceeds expectations.
             </Typography>
@@ -63,7 +63,7 @@ export default function LandingTextSection() {
             title="a room in a hotel"
           />
           <CardContent>
-            <Typography variant="body2" sx={{ fontSize: "1.5rem" }}>
+            <Typography  sx={{ fontSize: "1.5rem", fontWeight:'100' }}>
               From cozy picturesque cabins to elegant estates, we have something
               for every taste.
             </Typography>
@@ -80,8 +80,7 @@ export default function LandingTextSection() {
         }}
       >
         <NavLink to="/venues">
-          {" "}
-          <Button variant="contained" color="secondary" size="large"  sx= {{marginTop: {md: '1rem'}, marginY: {xs: "3rem"}}}>
+          <Button variant="contained" color="primary" size="large"  sx= {{marginTop: {md: '1rem'}, marginY: {xs: "3rem"}}}>
             Browse venues
           </Button>
         </NavLink>

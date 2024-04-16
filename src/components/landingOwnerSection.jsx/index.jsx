@@ -13,52 +13,46 @@ export default function LandingOwnerSection() {
     <>
       <Box
         sx={{
-          width: "100%",
+          backgroundImage: "url('images/photos/house-for-rent.jpg')",
+          backgroundSize: "auto 100%",
+          backgroundPosition: "center",
+          objectFit: 'cover',
           height: "100vh",
           display: "flex",
-          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: { xs: 'center', md: 'flex-start'}
         }}
       >
-        <Box
-          sx={{
-            backgroundImage: "url('images/photos/house-for-rent.jpg')",
-            backgroundSize: "auto 100%",
-            backgroundPosition: "center",
-            height: "100vh",
-            width: "100%",
-          }}
-        >
-          <Card
+        <Card sx={{ maxWidth: 345, marginLeft: {xs: '0', mathDepth:'4rem'}  }}>
+          <CardMedia
+            sx={{ height: 320 }}
+            image="/images/icons/owner.png"
+            title="reception desk at a hotel"
+          />
+          <CardContent>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: "1.5rem", fontWeight:'100' }}
+            >
+              Unlock the potential of your property with us! Join our platform
+              today and turn your property into the next hot spot for travelers!
+            </Typography>
+          </CardContent>
+          <Box
             sx={{
-              maxWidth: { xs: "100%", md: "25%" },
-              height: "max-content",
-              padding: { xs: "0", md: "2rem" },
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom :'1.5rem'
             }}
           >
-            <CardMedia
-              sx={{ height: { xs: "10rem", md: "20rem" } }}
-              image="/images/icons/owner.png"
-              title="reception desk at a hotel"
-            />
-            <CardContent>
-              <Typography
-                variant="body2"
-                sx={{ fontSize: { xs: "1rem", md: "1.5rem" } }}
-              >
-                Unlock the potential of your property with us! Join our platform
-                today and turn your property into the next hot spot for
-                travelers! Maximize your earnings, showcase your unique space,
-                and embark on a journey of hospitality and success with us.
-              </Typography>
-            </CardContent>
             <NavLink to="/auth">
-              {" "}
-              <Button variant="contained" size="large">
+              <Button variant="contained" color="primary" size="large">
                 Register now
               </Button>
             </NavLink>
-          </Card>
-        </Box>
+          </Box>
+        </Card>
       </Box>
     </>
   );

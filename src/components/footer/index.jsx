@@ -1,96 +1,86 @@
 import * as React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 
 export default function Footer() {
   return (
     <Box
       sx={{
-        color: "#404040",
-        padding: "20px",
+        marginY: "3rem",
+        padding: "1.5rem",
         display: "flex",
         justifyContent: "space-around",
       }}
     >
       <Box>
-        <Typography sx={{ typography: { md: "h5", xs: "subtitle1" }, mb: 6 }}>
+        <Typography
+          sx={{
+            textTransform: "upperCase",
+            fontSize: "1.3rem",
+            margin: "0 0 1rem 0.5rem",
+          }}
+        >
           About
         </Typography>
-        <Box>
-          <Typography
-            sx={{
-              typography: { md: "subtitle1", xs: "subtitle2" },
-              paddingY: { xs: 1 },
-            }}
-          >
-            Our story
-          </Typography>
+        <Box sx={{marginTop: '1.5rem'}}>
+          <NavLink to="/story" style={{ textDecoration: "none" }}>
+          <Button variant="text" sx={{color:'black'}}>
+              Our story
+          </Button>
+          </NavLink>
         </Box>
-        <Box>
-          <Typography
-            sx={{
-              typography: { md: "subtitle1", xs: "subtitle2" },
-              paddingY: { xs: 1 },
-            }}
-          >
-            Our team
-          </Typography>
-        </Box>
-        <Box>
-          <Typography
-            sx={{
-              typography: { md: "subtitle1", xs: "subtitle2" },
-              paddingY: { xs: 1 },
-            }}
-          >
-            Career
-          </Typography>
-        </Box>
-      </Box>
-      <Box>
-        <Typography sx={{ typography: { md: "h5", xs: "subtitle1" }, mb: 6 }}>
-          Company
-        </Typography>
-        <Box>
-          <Typography
-            sx={{
-              typography: { md: "subtitle1", xs: "subtitle2" },
-              paddingY: { xs: 1 },
-            }}
-          >
-            Our services
-          </Typography>
-        </Box>
-        <Box>
-          <Typography
-            sx={{
-              typography: { md: "subtitle1", xs: "subtitle2" },
-              paddingY: { xs: 1 },
-            }}
-          >
-            Delivery
-          </Typography>
-        </Box>
-        <Box>
-          <NavLink to="/contact" style={{ textDecoration: "none" }}>
-            <Typography
-              sx={{
-                typography: { md: "subtitle1", xs: "subtitle2" },
-                paddingY: { xs: 1 },
-              }}
-              className="IconLink"
-            >
-              Contacts
-            </Typography>
+        <Box sx={{marginTop: '1.5rem'}}>
+          <NavLink to="/clients" style={{ textDecoration: "none" }}>
+            <Button variant="text" sx={{color:'black'}}>
+              Our clients
+            </Button>
           </NavLink>
         </Box>
       </Box>
       <Box>
-        <Typography sx={{ typography: { md: "h5", xs: "subtitle1" }, mb: 6 }}>
-          Social Media
+        <Typography
+          sx={{
+            textTransform: "upperCase",
+            fontSize: "1.3rem",
+            margin: "0 0 1rem 0.5rem",
+          }}
+        >
+          Company
         </Typography>
-      
+        <Box sx={{marginTop: '1.5rem'}}>
+          <NavLink to="/services" style={{ textDecoration: "none" }}>
+          <Button variant="text" sx={{color:'black'}}>
+              Our services
+            </Button>
+          </NavLink>
+        </Box>
+        <Box sx={{marginTop: '1.5rem'}}>
+          <NavLink to="/contacts" style={{ textDecoration: "none" }}>
+          <Button variant="text" sx={{color:'black'}}>
+              Our Contacts
+            </Button>
+          </NavLink>
+        </Box>
+      </Box>
+      <Box>
+        <Typography
+          sx={{
+            textTransform: "upperCase",
+            fontSize: "1.3rem",
+            margin: "0 0 1rem 0.5rem",
+          }}
+        >
+          Media
+        </Typography>
+        <Box sx={{marginTop: '1.5rem'}}>
+          <Link to="https://www.facebook.com/" style={{ textDecoration: "none" }}>
+          <Button variant="text" sx={{color:'black'}}>
+               <FacebookRoundedIcon />
+            </Button>
+          </Link>
+        </Box>
       </Box>
     </Box>
   );
