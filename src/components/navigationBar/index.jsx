@@ -1,6 +1,7 @@
 import * as React from "react";
 import { AppBar, Box, Toolbar } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import ProfilePopover from "../profilePopover";
 
 
 export default function NavigationBar() {
@@ -16,12 +17,7 @@ export default function NavigationBar() {
               sx={{ height: "5rem" }}
             />
           </NavLink>
-          <Box
-            component="img"
-            src="../images/icons/profile.png"
-            alt="the icon of the owner profile"
-            sx={{ height: "4rem", cursor: "pointer" }}
-          />
+          <ProfilePopover />
         </Toolbar>
       </AppBar>
     </Box>
