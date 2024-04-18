@@ -23,7 +23,7 @@ export default function LandingOwnerSection() {
           justifyContent: { xs: 'center', md: 'flex-start'}
         }}
       >
-        <Card sx={{ maxWidth: 345, marginLeft: {xs: '0', mathDepth:'4rem'}  }}>
+        <Card sx={{ maxWidth: 345, marginLeft: {xs: '0', md:'10rem'}  }}>
           <CardMedia
             sx={{ height: 320 }}
             image="/images/icons/owner.png"

@@ -25,7 +25,7 @@ export default function LandingTextSection() {
       >
         <Card sx={{ maxWidth: 345, marginTop: { xs: "1rem" } }}>
           <CardMedia
-            sx={{ height: 300 }}
+            sx={{ height: 300, marginTop: '1rem' }}
             image="/images/icons/resort.png"
             title="a resort with palms"
           />
@@ -39,7 +39,7 @@ export default function LandingTextSection() {
 
         <Card sx={{ maxWidth: 345, marginTop: { xs: "1rem" } }}>
           <CardMedia
-            sx={{ height: 300 }}
+            sx={{ height: 300, marginTop: '1rem'  }}
             image="/images/icons/client.png"
             title="a client at a reception desk"
           />
@@ -58,7 +58,7 @@ export default function LandingTextSection() {
           }}
         >
           <CardMedia
-            sx={{ height: 300 }}
+            sx={{ height: 300, marginTop: '1rem'  }}
             image="/images/icons/room.png"
             title="a room in a hotel"
           />

@@ -1,22 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCart } from "react-use-cart";
-import {
-  Typography,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Container,
-  CssBaseline,
-  Box,
-  CardMedia,
-} from "@mui/material";
+import { Typography, Button, Box, Paper } from "@mui/material";
+import PaidIcon from "@mui/icons-material/Paid";
+import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
+import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
+
+
 
 export default function DetailsPage() {
   const [venue, setVenue] = useState({});
   const [error, setError] = useState(null);
-  const { addItem } = useCart();
+  // const { addItem } = useCart();
   const { id } = useParams();
   const API_URL = "https://v2.api.noroff.dev/holidaze/venues/" + id;
 
@@ -35,52 +31,225 @@ export default function DetailsPage() {
   }, [API_URL]);
 
   return (
-    <>
-      <CssBaseline />
-      <Container maxWidth="sm">
-        <Box sx={{ minheight: "90vh" }}>
-          {error && (
-            <Link to="/venues">
-              <Button color="error">
-                {error} <br />
-                Back to the venues
-              </Button>
-            </Link>
-          )}
-          <Card
-            key={id}
+    <Box
+      sx={{
+        width: "100%",
+        minHeight: "90vh",
+        mt: "5rem",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      {error && (
+        <Link to="/venues">
+          <Button color="error">
+            {error} <br />
+            Back to the venues
+          </Button>
+        </Link>
+      )}
+      <Paper
+        elevation={3}
+        key={id}
+        sx={{
+          backgroundColor: "#FBFAF8",
+          width: { xs: "100%", sm: "33rem", md: "50rem" },
+          mt: { sm: 5 },
+        }}
+      >
+        <Box sx={{ display: "flex" }}>
+          <Box
             sx={{
-              backgroundColor: "#FBFAF8",
-              maxWidth: 800,
-              padding: { md: 2 },
-              m: 5,
+              backgroundImage: `url(${
+                venue.media?.url || "/images/photos/house-for-rent.jpg"
+              })`,
+              backgroundSize: "auto 100%",
+              objectFit: "cover",
+              backgroundPosition: "center",
+              height: { xs: "50%", md: "30rem" },
+              display: "flex",
+              width: { xs: "100%", sm: "22rem", md: "25rem", lg: "35rem" },
+              mr: "0.5rem",
+            }}
+          ></Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: { xs: "100%", sm: "11rem", md: "25rem", lg: "35rem" },
             }}
           >
-            <CardMedia val={venue.image?.url} />
-            <Typography>{venue.title}</Typography>
-            <CardContent>{venue.description}</CardContent>
-            <Typography>{venue.price}</Typography>
-            <CardActions
+            <Box
               sx={{
-                display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                alignItems: { xs: "center" },
+                backgroundImage: `url(${
+                  venue.media?.url || "/images/photos/house-for-rent.jpg"
+                })`,
+                backgroundSize: "auto 100%",
+                objectFit: "cover",
+                backgroundPosition: "center",
+                height: { xs: "50%", md: "15rem" },
+                mb: "0.5rem",
+              }}
+            ></Box>
+            <Box
+              sx={{
+                backgroundImage: `url(${
+                  venue.media?.url || "/images/photos/house-for-rent.jpg"
+                })`,
+                backgroundSize: "auto 100%",
+                objectFit: "cover",
+                backgroundPosition: "center",
+                height: { xs: "50%", md: "14.5rem" },
+              }}
+            ></Box>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            margin: "1.5rem",
+            width: '45%'
+          }}
+        >
+          <Box>
+            <Typography
+              sx={{
+                textTransform: "upperCase",
+                fontWeight: "400",
+                fontSize: "1.2rem",
               }}
             >
-              <Link to={"/venues"}>
-                <Button variant='outlined'>Back to the venues</Button>
-              </Link>
-              <Button
-                onClick={() => addItem({ ...venue })}
-                variant="contained"
-                color="primary"
-              >
-                Add
-              </Button>
-            </CardActions>
-          </Card>
+              {venue.name}
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex" }}>
+            <StarRoundedIcon
+              sx={{ color: "primary.main", marginRight: "0.3rem" }}
+            />
+            <Typography sx={{ fontWeight: "100" }}>{venue.rating}</Typography>
+          </Box>
         </Box>
-      </Container>
-    </>
+        <Box sx={{ display: "flex", margin: "1.5rem", width: '45%' }}>
+          <Typography sx={{ fontWeight: "100", fontSize: "1rem" }}>
+            {venue.description}
+          </Typography>
+        </Box>
+        <Box sx={{ display: "flex", margin: "1.5rem 0 0 1.5rem" }}>
+          <FmdGoodRoundedIcon
+            sx={{ color: "primary.main", marginRight: "0.5rem" }}
+          />
+          <Typography sx={{ fontWeight: "100" }}>
+          {venue.location && venue.location.city !== null ? venue.location.city : 'Unknown'}
+          </Typography>
+        </Box>
+        <Box sx={{ display: "flex", margin: "0 0 0 1.5rem" }}>
+          <HotelRoundedIcon
+            sx={{ color: "primary.main", marginRight: "0.5rem" }}
+          />
+          <Typography sx={{ fontWeight: "100" }}>
+            max {venue.maxGuests} guests
+          </Typography>
+        </Box>
+        <Box sx={{ display: "flex", margin: "1.5rem 0 0 1.5rem" }}>
+          <PaidIcon sx={{ color: "primary.main", marginRight: "0.5rem" }} />
+          <Typography sx={{ fontWeight: "400" }}>{venue.price}</Typography>
+        </Box>
+        <Box sx={{ display: "flex", width: '45%', justifyContent: 'space-between', margin: '1.5rem 0 1.5rem 1rem', borderTop: 'grey solid 1px' }}>
+       { venue.meta && venue.meta.wifi !== null ? (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/wifi.jpg')",
+              width: '4rem',
+              height: '4rem',
+              backgroundSize: 'contain'
+              }}
+            ></Box>
+            ) : (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/noWifi.jpg')",
+                width: "4rem",
+                height: "4rem",
+                backgroundSize: 'contain'
+              }}
+            ></Box>
+            )}
+        { venue.meta && venue.meta.parking !== null ? (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/parking.jpg')",
+              width: '4rem',
+              height: '4rem',
+              backgroundSize: 'contain'
+              }}
+            ></Box>
+            ) : (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/noParking.jpg')",
+                width: "4rem",
+                height: "4rem",
+                backgroundSize: 'contain'
+              }}
+            ></Box>
+            )}
+            { venue.meta && venue.meta.breakfast !== null ? (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/breakfast.jpg')",
+              width: '4rem',
+              height: '4rem',
+              backgroundSize: 'contain'
+              }}
+            ></Box>
+            ) : (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/noBreakfast.jpg')",
+                width: "4rem",
+                height: "4rem",
+                backgroundSize: 'contain'
+              }}
+            ></Box>
+            )}
+              { venue.meta && venue.meta.pets !== null ? (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/pets.jpg')",
+              width: '4rem',
+              height: '4rem',
+              backgroundSize: 'contain'
+              }}
+            ></Box>
+            ) : (
+              <Box
+              sx={{
+                backgroundImage: "url('/images/icons/noPets.jpg')",
+                width: "4rem",
+                height: "4rem",
+                backgroundSize: 'contain'
+              }}
+            ></Box>
+            )}
+        </Box> 
+
+        <Box
+          sx={{
+            width: '100%',
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            alignItems: { xs: "center" },
+            justifyContent: {sm: 'space-around'}
+          }}
+        >
+<Box>
+
+</Box>
+  
+
+        </Box>
+      </Paper>
+    </Box>
   );
 }

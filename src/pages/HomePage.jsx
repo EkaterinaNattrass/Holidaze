@@ -3,11 +3,9 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
-  Button,
   Box,
   TextField,
   InputAdornment,
@@ -17,8 +15,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PaidIcon from "@mui/icons-material/Paid";
 import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
 import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
 
 const API_URL = "https://v2.api.noroff.dev/holidaze/venues";
 
@@ -78,7 +75,7 @@ export default function HomePage() {
             }}
           />
         </Box>
-        <Grid container spacing={6}>
+        <Grid container spacing={4}>
           {venues
             .filter((venue) => {
               return search.toLowerCase() === ""
@@ -87,41 +84,64 @@ export default function HomePage() {
                     venue.description.toLowerCase().includes(search);
             })
             .map((venue) => (
-              <Grid key={venue.id} xs={12} md={4}>
-                <Card
+              <Grid xs={12} sm={6} md={4} lg={3}>
+                <Card key={venue.id}
                   sx={{
                     backgroundColor: "#FBFAF8",
-                    maxWidth: "25rem" /* minHeight: '20rem' */,
+                    maxWidth: "25rem"
                   }}
                 >
-                  <CardMedia>{venue.image?.url}</CardMedia>
+                     <Link to={`/venues/${venue.id}`}>
+                      <CardMedia
+                    sx={{ height: 300 }}
+                    image={
+                      venue.media?.url || "images/photos/house-for-rent.jpg"
+                    }
+                    alt={venue.media?.alt}
+                  />
+                    </Link>
+                  
                   <CardContent>
-                    <Box sx={{ display: "flex", justifyContent: 'space-between' }}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
                       <Box>
-                         <Typography
-                        sx={{ textTransform: 'upperCase',fontWeight: "400", fontSize: '1.2rem', marginBottom: "1rem" }}
-                      >
-                        {venue.name}
-                      </Typography>
+                        <Typography key={venue.id}
+                          sx={{
+                            textTransform: "upperCase",
+                            fontWeight: "400",
+                            fontSize: "1rem",
+                            marginBottom: "0.5rem",
+                          }}
+                        >
+                          {venue.name}
+                        </Typography>
                       </Box>
                       <Box sx={{ display: "flex" }}>
-                      <StarRoundedIcon   sx={{ color: "primary.main", marginRight: "0.3rem" }}/>
-                       <Typography sx={{fontWeight: "100"}}>{venue.rating}</Typography> 
+                        <StarRoundedIcon
+                          sx={{ color: "primary.main", marginRight: "0.3rem" }}
+                        />
+                        <Typography sx={{ fontWeight: "100" }} key={venue.id}>
+                          {venue.rating}
+                        </Typography>
                       </Box>
-                      
                     </Box>
                     <Box sx={{ display: "flex" }}>
                       <FmdGoodRoundedIcon
                         sx={{ color: "primary.main", marginRight: "0.5rem" }}
                       />
-                      <Typography sx={{fontWeight: "100"}}>{venue.location.city}</Typography>
+                      <Typography sx={{ fontWeight: "100" }} key={venue.id}>
+                      {venue.location && venue.location.city !== null ? venue.location.city : 'Unknown'}
+                      </Typography>
                     </Box>
 
                     <Box sx={{ display: "flex" }}>
                       <HotelRoundedIcon
                         sx={{ color: "primary.main", marginRight: "0.5rem" }}
                       />
-                      <Typography sx={{fontWeight: "100"}}>max {venue.maxGuests} guests</Typography>
+                      <Typography sx={{ fontWeight: "100" }} key={venue.id}>
+                        max {venue.maxGuests} guests
+                      </Typography>
                     </Box>
 
                     <Box sx={{ display: "flex" }}>
@@ -133,15 +153,6 @@ export default function HomePage() {
                       </Typography>
                     </Box>
                   </CardContent>
-                  <CardActions
-                    sx={{ display: "flex", justifyContent: "flex-end" }}
-                  >
-                    <Link to={`/venues/${venue.id}`}>
-                      <Button variant="text" sx={{color:'black'}}>
-                        View venue <ArrowForwardIosRoundedIcon fontSize="0.6rem"/>
-                      </Button>
-                    </Link>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}
