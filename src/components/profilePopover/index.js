@@ -73,7 +73,7 @@ export default function ProfilePopover() {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 width: { xs: "100%", sm: "30rem" },
-                height: "50%",
+                height: "60%",
                 bgcolor: "background.paper",
                 boxShadow: 24,
                 p: 4,
@@ -83,14 +83,21 @@ export default function ProfilePopover() {
                 <AccordionSummary
                   aria-controls="panel3-content"
                   id="panel3-header"
+                  sx={{
+                    backgroundColor: "#F2935C",
+                    color: "white",
+                    textTransform: "uppercase",
+                    textAlign: "center",
+                  }}
                 >
-                  Log in
+                  Login
                 </AccordionSummary>
                 <Box>
                   <Box
                     component="form"
                     sx={{
                       "& > :not(style)": { m: 1, width: "25ch" },
+                      ml: '1rem'
                     }}
                     noValidate
                     autoComplete="off"
@@ -105,6 +112,7 @@ export default function ProfilePopover() {
                     component="form"
                     sx={{
                       "& > :not(style)": { m: 1, width: "25ch" },
+                      ml: '1rem'
                     }}
                     noValidate
                     autoComplete="off"
@@ -115,22 +123,43 @@ export default function ProfilePopover() {
                       variant="standard"
                     />
                   </Box>
-                  <Button>log in</Button>
+                  <Button sx={{margin: '0 0 1rem 23rem'}}>log in</Button>
                 </Box>
               </Accordion>
               <Accordion defaultExpanded>
                 <AccordionSummary
                   aria-controls="panel3-content"
                   id="panel3-header"
-                  sx= {{backgroundColor: '"#FBFAF8"'}}
+                  sx={{
+                    border: "1px solid #F2935C",
+                    color: "#F2935C",
+                    textTransform: "uppercase",
+                    textAlign: "center",
+                  }}
                 >
-                 Register
+                  Register
                 </AccordionSummary>
                 <Box>
                   <Box
                     component="form"
                     sx={{
                       "& > :not(style)": { m: 1, width: "25ch" },
+                      ml: '1rem'
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="standard-basic"
+                      label="Your name"
+                      variant="standard"
+                    />
+                  </Box>
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1, width: "25ch" },
+                      ml: '1rem'
                     }}
                     noValidate
                     autoComplete="off"
@@ -145,6 +174,7 @@ export default function ProfilePopover() {
                     component="form"
                     sx={{
                       "& > :not(style)": { m: 1, width: "25ch" },
+                      ml: '1rem'
                     }}
                     noValidate
                     autoComplete="off"
@@ -155,7 +185,7 @@ export default function ProfilePopover() {
                       variant="standard"
                     />
                   </Box>
-                  <Button>log in</Button>
+                  <Button sx={{margin: '0 0 1rem 23rem', padding: '1rem'}}>Register</Button>
                 </Box>
               </Accordion>
             </Box>
