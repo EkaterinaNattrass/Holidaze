@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Button, Box, Popover, Modal } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-
 export default function ProfilePopover() {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -18,7 +15,7 @@ export default function ProfilePopover() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(true);
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -72,32 +69,43 @@ export default function ProfilePopover() {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-                width: { xs: "100%", sm: "30rem" },
-                height: "60%",
+                width: { xs: "18rem", sm: "30rem" },
+                height: { xs: "90%", sm: "70%" },
                 bgcolor: "background.paper",
                 boxShadow: 24,
                 p: 4,
               }}
             >
-              <Accordion defaultExpanded>
-                <AccordionSummary
-                  aria-controls="panel3-content"
-                  id="panel3-header"
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Box
                   sx={{
                     backgroundColor: "#F2935C",
                     color: "white",
                     textTransform: "uppercase",
                     textAlign: "center",
+                    height: "2.5rem",
+                    width: "100%",
+                    paddingTop: "0.5rem",
+                    marginTop: "1rem",
                   }}
                 >
                   Login
-                </AccordionSummary>
-                <Box>
+                </Box>
+                <Box sx={{ marginTop: "1rem" }}>
                   <Box
                     component="form"
                     sx={{
-                      "& > :not(style)": { m: 1, width: "25ch" },
-                      ml: '1rem'
+                      "& > :not(style)": {
+                        m: 1,
+                        width: { xs: "25ch", sm: "30ch" },
+                      },
+                      ml: "1rem",
                     }}
                     noValidate
                     autoComplete="off"
@@ -111,8 +119,11 @@ export default function ProfilePopover() {
                   <Box
                     component="form"
                     sx={{
-                      "& > :not(style)": { m: 1, width: "25ch" },
-                      ml: '1rem'
+                      "& > :not(style)": {
+                        m: 1,
+                        width: { xs: "25ch", sm: "30ch" },
+                      },
+                      ml: "1rem",
                     }}
                     noValidate
                     autoComplete="off"
@@ -123,28 +134,39 @@ export default function ProfilePopover() {
                       variant="standard"
                     />
                   </Box>
-                  <Button sx={{margin: '0 0 1rem 23rem'}}>log in</Button>
+                  <Button
+                    sx={{
+                      marginLeft: { xs: "35%", sm: "95%" },
+                      marginY: '0.5rem',
+                      padding: '0.5rem'
+                    }}
+                  >
+                    login
+                  </Button>
                 </Box>
-              </Accordion>
-              <Accordion defaultExpanded>
-                <AccordionSummary
-                  aria-controls="panel3-content"
-                  id="panel3-header"
+                <Box
                   sx={{
                     border: "1px solid #F2935C",
                     color: "#F2935C",
                     textTransform: "uppercase",
                     textAlign: "center",
+                    paddingTop: "0.5rem",
+                    height: "2.5rem",
+                    marginTop: "1rem",
+                    width: "100%",
                   }}
                 >
                   Register
-                </AccordionSummary>
-                <Box>
+                </Box>
+                <Box sx={{ marginTop: "1rem" }}>
                   <Box
                     component="form"
                     sx={{
-                      "& > :not(style)": { m: 1, width: "25ch" },
-                      ml: '1rem'
+                      "& > :not(style)": {
+                        m: 1,
+                        width: { xs: "25ch", sm: "30ch" },
+                      },
+                      ml: "1rem",
                     }}
                     noValidate
                     autoComplete="off"
@@ -158,23 +180,29 @@ export default function ProfilePopover() {
                   <Box
                     component="form"
                     sx={{
-                      "& > :not(style)": { m: 1, width: "25ch" },
-                      ml: '1rem'
+                      "& > :not(style)": {
+                        m: 1,
+                        width: { xs: "25ch", sm: "30ch" },
+                      },
+                      ml: "1rem",
                     }}
                     noValidate
                     autoComplete="off"
                   >
                     <TextField
                       id="standard-basic"
-                      label="Your email"
+                      label="Your Noroff email"
                       variant="standard"
                     />
                   </Box>
                   <Box
                     component="form"
                     sx={{
-                      "& > :not(style)": { m: 1, width: "25ch" },
-                      ml: '1rem'
+                      "& > :not(style)": {
+                        m: 1,
+                        width: { xs: "25ch", sm: "30ch" },
+                      },
+                      ml: "1rem",
                     }}
                     noValidate
                     autoComplete="off"
@@ -185,9 +213,15 @@ export default function ProfilePopover() {
                       variant="standard"
                     />
                   </Box>
-                  <Button sx={{margin: '0 0 1rem 23rem', padding: '1rem'}}>Register</Button>
+                  <Button   sx={{
+                      marginLeft: { xs: "35%", sm: "95%" },
+                      marginY: '0.5rem',
+                      padding: '0.5rem'
+                    }}>
+                    register
+                  </Button>
                 </Box>
-              </Accordion>
+              </Box>
             </Box>
           </Modal>
         </Box>
