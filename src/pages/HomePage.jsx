@@ -94,9 +94,7 @@ export default function HomePage() {
                      <Link to={`/venues/${venue.id}`}>
                       <CardMedia
                     sx={{ height: 300 }}
-                    image={
-                      venue.media?.url || "images/photos/house-for-rent.jpg"
-                    }
+                    image= { venue.media && venue.media.url ? venue.media.url : "/images/photos/house-for-rent.jpg"}
                     alt={venue.media?.alt}
                   />
                     </Link>

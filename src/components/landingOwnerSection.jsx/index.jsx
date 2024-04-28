@@ -32,7 +32,7 @@ export default function LandingOwnerSection() {
           <CardContent>
             <Typography
               variant="body2"
-              sx={{ fontSize: "1.5rem", fontWeight:'100' }}
+              sx={{ fontSize: "1.3rem", fontWeight:'100' }}
             >
               Unlock the potential of your property with us! Join our platform
               today and turn your property into the next hot spot for travelers!
@@ -46,9 +46,9 @@ export default function LandingOwnerSection() {
               marginBottom :'1.5rem'
             }}
           >
-            <NavLink to="/auth">
+            <NavLink to="/services">
               <Button variant="contained" color="primary" size="large">
-                Register now
+                Read more
               </Button>
             </NavLink>
           </Box>

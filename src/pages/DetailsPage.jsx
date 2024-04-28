@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useCart } from "react-use-cart";
+//import { useCart } from "react-use-cart";
 import { Typography, Button, Box, Paper } from "@mui/material";
 import PaidIcon from "@mui/icons-material/Paid";
 import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
 import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-
-
+import { Directions } from "@mui/icons-material";
 
 export default function DetailsPage() {
   const [venue, setVenue] = useState({});
@@ -50,6 +49,7 @@ export default function DetailsPage() {
       )}
       <Paper
         elevation={3}
+        square={false}
         key={id}
         sx={{
           backgroundColor: "#FBFAF8",
@@ -61,14 +61,16 @@ export default function DetailsPage() {
           <Box
             sx={{
               backgroundImage: `url(${
-                venue.media?.url || "/images/photos/house-for-rent.jpg"
+                venue.media && venue.media.url
+                  ? venue.media.url
+                  : "/images/photos/house-for-rent.jpg"
               })`,
               backgroundSize: "auto 100%",
               objectFit: "cover",
               backgroundPosition: "center",
-              height: { xs: "50%", md: "30rem" },
+              height: { sm: "20rem", md: "30rem" },
               display: "flex",
-              width: { xs: "100%", sm: "22rem", md: "25rem", lg: "35rem" },
+              width: { sm: "22rem", md: "25rem", lg: "35rem" },
               mr: "0.5rem",
             }}
           ></Box>
@@ -82,10 +84,9 @@ export default function DetailsPage() {
             <Box
               sx={{
                 backgroundImage: `url(${
-                  venue.media?.url || "/images/photos/house-for-rent.jpg"
+                  venue.media?.url || "/images/photos/living-room.jpg"
                 })`,
-                backgroundSize: "auto 100%",
-                objectFit: "cover",
+                backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: { xs: "50%", md: "15rem" },
                 mb: "0.5rem",
@@ -94,160 +95,181 @@ export default function DetailsPage() {
             <Box
               sx={{
                 backgroundImage: `url(${
-                  venue.media?.url || "/images/photos/house-for-rent.jpg"
+                  venue.media?.url || "/images/photos/bedroom.jpg"
                 })`,
-                backgroundSize: "auto 100%",
-                objectFit: "cover",
+                backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: { xs: "50%", md: "14.5rem" },
               }}
             ></Box>
           </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            margin: "1.5rem",
-            width: '45%'
-          }}
-        >
-          <Box>
-            <Typography
-              sx={{
-                textTransform: "upperCase",
-                fontWeight: "400",
-                fontSize: "1.2rem",
-              }}
-            >
-              {venue.name}
+
+        <Box sx={{ border: "2px solid orange", display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Box sx={{width: { xs: "50%", sm: "16rem", md: "25rem" }}}>
+            <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              margin: "1.5rem",
+             
+            }}
+          >
+            <Box>
+              <Typography
+                sx={{
+                  textTransform: "upperCase",
+                  fontWeight: "400",
+                  fontSize: "1.2rem",
+                }}
+              >
+                {venue.name}
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              <StarRoundedIcon
+                sx={{ color: "primary.main", marginRight: "0.3rem" }}
+              />
+              <Typography sx={{ fontWeight: "100" }}>{venue.rating}</Typography>
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", margin: "1.5rem", width: "45%" }}>
+            <Typography sx={{ fontWeight: "100", fontSize: "1rem" }}>
+              {venue.description}
             </Typography>
           </Box>
-          <Box sx={{ display: "flex" }}>
-            <StarRoundedIcon
-              sx={{ color: "primary.main", marginRight: "0.3rem" }}
+          <Box sx={{ display: "flex", margin: "1.5rem 0 0 1.5rem" }}>
+            <FmdGoodRoundedIcon
+              sx={{ color: "primary.main", marginRight: "0.5rem" }}
             />
-            <Typography sx={{ fontWeight: "100" }}>{venue.rating}</Typography>
+            <Typography sx={{ fontWeight: "100" }}>
+              {venue.location && venue.location.city !== null
+                ? venue.location.city
+                : "Unknown"}
+            </Typography>
           </Box>
-        </Box>
-        <Box sx={{ display: "flex", margin: "1.5rem", width: '45%' }}>
-          <Typography sx={{ fontWeight: "100", fontSize: "1rem" }}>
-            {venue.description}
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", margin: "1.5rem 0 0 1.5rem" }}>
-          <FmdGoodRoundedIcon
-            sx={{ color: "primary.main", marginRight: "0.5rem" }}
-          />
-          <Typography sx={{ fontWeight: "100" }}>
-          {venue.location && venue.location.city !== null ? venue.location.city : 'Unknown'}
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", margin: "0 0 0 1.5rem" }}>
-          <HotelRoundedIcon
-            sx={{ color: "primary.main", marginRight: "0.5rem" }}
-          />
-          <Typography sx={{ fontWeight: "100" }}>
-            max {venue.maxGuests} guests
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", margin: "1.5rem 0 0 1.5rem" }}>
-          <PaidIcon sx={{ color: "primary.main", marginRight: "0.5rem" }} />
-          <Typography sx={{ fontWeight: "400" }}>{venue.price}</Typography>
-        </Box>
-        <Box sx={{ display: "flex", width: '45%', justifyContent: 'space-between', margin: '1.5rem 0 1.5rem 1rem', borderTop: 'grey solid 1px' }}>
-       { venue.meta && venue.meta.wifi !== null ? (
+          <Box sx={{ display: "flex", margin: "0 0 0 1.5rem" }}>
+            <HotelRoundedIcon
+              sx={{ color: "primary.main", marginRight: "0.5rem" }}
+            />
+            <Typography sx={{ fontWeight: "100" }}>
+              max {venue.maxGuests} guests
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", margin: "1.5rem 0 0 1.5rem" }}>
+            <PaidIcon sx={{ color: "primary.main", marginRight: "0.5rem" }} />
+            <Typography sx={{ fontWeight: "400" }}>{venue.price}</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              width: "45%",
+              justifyContent: "space-between",
+              margin: "1.5rem 0 1.5rem 1rem",
+              borderTop: "grey solid 1px",
+            }}
+          >
+            {venue.meta && venue.meta.wifi !== null ? (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/wifi.jpg')",
-              width: '4rem',
-              height: '4rem',
-              backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/wifi.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             ) : (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/noWifi.jpg')",
-                width: "4rem",
-                height: "4rem",
-                backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/noWifi.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             )}
-        { venue.meta && venue.meta.parking !== null ? (
+            {venue.meta && venue.meta.parking !== null ? (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/parking.jpg')",
-              width: '4rem',
-              height: '4rem',
-              backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/parking.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             ) : (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/noParking.jpg')",
-                width: "4rem",
-                height: "4rem",
-                backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/noParking.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             )}
-            { venue.meta && venue.meta.breakfast !== null ? (
+            {venue.meta && venue.meta.breakfast !== null ? (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/breakfast.jpg')",
-              width: '4rem',
-              height: '4rem',
-              backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/breakfast.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             ) : (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/noBreakfast.jpg')",
-                width: "4rem",
-                height: "4rem",
-                backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/noBreakfast.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             )}
-              { venue.meta && venue.meta.pets !== null ? (
+            {venue.meta && venue.meta.pets !== null ? (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/pets.jpg')",
-              width: '4rem',
-              height: '4rem',
-              backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/pets.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             ) : (
               <Box
-              sx={{
-                backgroundImage: "url('/images/icons/noPets.jpg')",
-                width: "4rem",
-                height: "4rem",
-                backgroundSize: 'contain'
-              }}
-            ></Box>
+                sx={{
+                  backgroundImage: "url('/images/icons/noPets.jpg')",
+                  width: "4rem",
+                  height: "4rem",
+                  backgroundSize: "contain",
+                }}
+              ></Box>
             )}
-        </Box> 
+          </Box> 
+          </Box>
+         
 
-        <Box
-          sx={{
-            width: '100%',
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-            alignItems: { xs: "center" },
-            justifyContent: {sm: 'space-around'}
-          }}
-        >
-<Box>
-
-</Box>
-  
-
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              alignItems: { xs: "center" },
+              justifyContent: { sm: "space-around" },
+            }}
+          >
+            <Paper
+              square={false}
+              elevation={3}
+              sx={{
+                backgroundColor: "white",
+                border: "pink solid 2px",
+                width: "10rem",
+                height: "100%",
+                mt: { sm: 5 },
+              }}
+            ></Paper>
+          </Box>
         </Box>
       </Paper>
     </Box>
