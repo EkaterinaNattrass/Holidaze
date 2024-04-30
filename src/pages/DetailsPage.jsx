@@ -6,7 +6,7 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
 import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import { Directions } from "@mui/icons-material";
+//import { Directions } from "@mui/icons-material";
 
 export default function DetailsPage() {
   const [venue, setVenue] = useState({});
