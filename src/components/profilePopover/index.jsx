@@ -5,14 +5,12 @@ import {
   Popover,
   Modal,
   TextField,
-  Stack,
-  Alert,
 } from "@mui/material";
 import { postData } from "../utils/postData";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../utils/constants";
 
 export default function ProfilePopover() {
-  const API_BASE_URL = "https://v2.api.noroff.dev/holidaze/";
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,10 +35,8 @@ export default function ProfilePopover() {
     setPasswordLogin("");
     setPasswordRegister("");
     setNameError("");
-    setEmailErrorLogin("");
-    setEmailErrorRegister("");
-    setPasswordErrorLogin("");
-    setPasswordErrorRegister("");
+    setEmailError("");
+    setPasswordError("");
   };
 
   const [name, setName] = useState("");
@@ -49,10 +45,8 @@ export default function ProfilePopover() {
   const [passwordLogin, setPasswordLogin] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
   const [nameError, setNameError] = useState(false);
-  const [emailErrorLogin, setEmailErrorLogin] = useState("");
-  const [emailErrorRegister, setEmailErrorRegister] = useState("");
-  const [passwordErrorLogin, setPasswordErrorLogin] = useState("");
-  const [passwordErrorRegister, setPasswordErrorRegister] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -67,35 +61,30 @@ export default function ProfilePopover() {
   const handleEmailChange = (event) => {
     const value = event.target.value;
     setEmailRegister(value);
-    const requiredDomain = "@stud.noroff.no";
+/*     const requiredDomain = "@stud.noroff.no";
     if (!value.toLowerCase().includes(requiredDomain.toLowerCase())) {
-      setEmailErrorRegister("Email must contain @stud.noroff.no");
+      setEmailError("Email must contain @stud.noroff.no");
     } else {
-      setEmailErrorRegister("");
-    }
+      setEmailError("");
+    } */
   };
 
   const handlePasswordChange = (event) => {
     const value = event.target.value;
     setPasswordRegister(value);
-    if (value.length < 8) {
-      setPasswordErrorRegister("Password must contain at least 8 characters");
-    } else {
-      setPasswordErrorRegister("");
-    }
   };
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
 
     const isNameValid = name.length >= 3;
-    const isEmailValid = emailRegister.toLowerCase().includes("@stud.noroff.com");
+    const isEmailValid = emailRegister.toLowerCase().includes("@stud.noroff.no");
     const isPasswordValid = passwordRegister.length >= 8;
 
     if (!isNameValid || !isEmailValid || !isPasswordValid) {
-      <Stack sx={{ width: "100%" }} spacing={2}>
-        <Alert severity="error">Form data is not vallid</Alert>
-      </Stack>;
+      setNameError(isNameValid ? "" : "Name must contain at least 3 characters");
+      setEmailError(isEmailValid ? "" : "Email must contain @stud.noroff.no");
+      setPasswordError(isPasswordValid ? "" : "Password must contain at least 8 characters");
     } else {
       try {
         const data = {
@@ -103,13 +92,14 @@ export default function ProfilePopover() {
           email: emailRegister,
           password: passwordRegister,
         };
-        await postData(`${API_BASE_URL}/auth/register`, data);
+        await postData(`${API_BASE_URL}/auth/create-api-key`, data);
 
         setName("");
         setEmailRegister("");
         setPasswordRegister("");
         setOpenModal(false);
         setAnchorEl(null);
+        console.log(data);
         navigate("/venues");
       } catch (error) {
         console.error("Error", error);
@@ -132,11 +122,10 @@ export default function ProfilePopover() {
         setOpenModal(false);
         setAnchorEl(null);
         navigate("/venues");
-      } catch (error) {  console.error("Error:", error);
-      return (<Stack sx={{ width: "100%" }} spacing={2}>
-      <Alert severity="error">Form data is not valid</Alert>
-    </Stack>)
-    }
+      } catch (error) {
+        console.error("Error", error);
+      }
+    };
 
   return (
     <div>
@@ -235,13 +224,11 @@ export default function ProfilePopover() {
                         label="Your Noroff email"
                         variant="standard"
                         value={emailLogin}
-                        onChange={handleEmailChange}
-                        error={!!emailErrorLogin}
-                        helperText={emailErrorLogin}
+          
                       />
                     </Box>
                     <Box
-                      component="form"
+                      component="div"
                       sx={{
                         "& > :not(style)": {
                           m: 1,
@@ -258,9 +245,7 @@ export default function ProfilePopover() {
                         label="Your password"
                         variant="standard"
                         value={passwordLogin}
-                        onChange={handlePasswordChange}
-                        error={!!passwordErrorLogin}
-                        helperText={passwordErrorLogin}
+               
                       />
                     </Box>
                     <Button
@@ -333,8 +318,8 @@ export default function ProfilePopover() {
                         variant="standard"
                         value={emailRegister}
                         onChange={handleEmailChange}
-                        error={!!emailErrorRegister}
-                        helperText={emailErrorRegister}
+                        error={!!emailError}
+                        helperText={emailError}
                       />
                     </Box>
                     <Box
@@ -356,8 +341,8 @@ export default function ProfilePopover() {
                         variant="standard"
                         value={passwordRegister}
                         onChange={handlePasswordChange}
-                        error={!!passwordErrorRegister}
-                        helperText={passwordErrorRegister}
+                        error={!!passwordError}
+                        helperText={passwordError}
                       />
                     </Box>
                     <Button
@@ -379,4 +364,4 @@ export default function ProfilePopover() {
       </Popover>
     </div>
   );
-}}
+}

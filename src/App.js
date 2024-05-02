@@ -15,6 +15,7 @@ import StoryPage from "./pages/StoryPage";
 import ClientsPage from "./pages/ClientsPage";
 import ServicesPage from "./pages/ServicesPage";
 import ContactsPage from "./pages/ContactsPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const theme = createTheme({
   palette: {
@@ -45,6 +46,7 @@ function App() {
               <Route path="clients" element={<ClientsPage />} />
               <Route path="services" element={<ServicesPage />} />
               <Route path="contacts" element={<ContactsPage />} />
+              <Route path="profile" element={<ProfilePage />} />
             </Route>
           </Routes>
         </CartProvider>

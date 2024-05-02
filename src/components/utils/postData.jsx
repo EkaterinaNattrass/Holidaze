@@ -1,8 +1,5 @@
 
 export const postData = async (url, body) => {
-        let response;
-        let data;
-        
         try {
           const response = await fetch(url, {
             method: "POST",
@@ -11,11 +8,13 @@ export const postData = async (url, body) => {
              // Authorization: `Bearer ${loadFromLocalStorage("token")}`,
             },
             body: JSON.stringify(body), });
+            if (!response.ok) {
+              throw new Error(`Error: ${response.status}`);
+            }
             const data = await response.json();
             console.log(data);
-        } catch (err) {
-          throw new Error (`${response.status} The error is ${data.errors[0].message}`)
+        } catch (error) {
+          throw new Error (`The error is ${error.message}`)
         }
-          return data;
       };
     

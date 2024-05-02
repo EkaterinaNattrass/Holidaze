@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 //import { useCart } from "react-use-cart";
 import { Typography, Button, Box, Paper } from "@mui/material";
