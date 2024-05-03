@@ -100,7 +100,7 @@ export default function ProfilePopover() {
         setOpenModal(false);
         setAnchorEl(null);
         console.log(data);
-        navigate("/venues");
+        navigate("/profile");
       } catch (error) {
         console.error("Error", error);
       }

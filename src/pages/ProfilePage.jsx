@@ -49,7 +49,7 @@ export default function ProfilePage() {
           />
         </Box>
         <Button sx={{ marginTop: "0.5rem" }}>
-          <AddAPhoto fontSize="large" />{" "}
+          <AddAPhoto fontSize="large" />
         </Button>
       </Box>
 
@@ -64,7 +64,7 @@ export default function ProfilePage() {
           </Typography>
         </Paper>
       </Box>
-      <Paper sx={{ height: "20rem" }}>
+      <Paper>
           <Typography
             sx={{
               padding: "1rem",
@@ -73,7 +73,7 @@ export default function ProfilePage() {
           >
             <BookmarkAdded
               sx={{ color: "primary.main", marginRight: "1rem" }}
-            />{" "}
+            />
             Your bookings
           </Typography>
       </Paper>
