@@ -1,5 +1,5 @@
 import { Box, Typography, Button, Paper } from "@mui/material";
-import React /* useState, useEffect  */ from "react";
+//import React, { useState, useEffect} from "react";
 //import { Link, useParams } from "react-router-dom";
 import {
   AddAPhoto,
@@ -11,6 +11,8 @@ import {
 } from "@mui/icons-material";
 
 export default function ProfilePage() {
+  //const [ profile, setProfile] = useState({});
+  //const [ booki]
   return (
     <Box
       sx={{
