@@ -16,12 +16,13 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
 import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
+import { API_BASE_URL } from "../components/utils/constants";
 
-const API_URL = "https://v2.api.noroff.dev/holidaze/venues";
+const API_URL = API_BASE_URL + `/venues`;
 
 export default function HomePage() {
   const [venues, setVenues] = useState([]);
-  const [isError, setIsError] = useState(false);
+ const [isError, setIsError] = useState(false);
   const [search, setSearch] = useState("");
 
   const handleOnSubmit = async (e) => {
@@ -41,8 +42,8 @@ export default function HomePage() {
       }
     }
     getVenues();
-  }, []);
-  if (isError) {
+  }, []); 
+ if (isError) {
     return <div>Error loading data</div>;
   }
   return (

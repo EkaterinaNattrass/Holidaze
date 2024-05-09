@@ -9,6 +9,7 @@ import {
 import { postData } from "../utils/postData";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../utils/constants";
+import FeedbackModal from "../feedbackModal";
 
 export default function ProfilePopover() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,7 +23,7 @@ export default function ProfilePopover() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -44,9 +45,10 @@ export default function ProfilePopover() {
   const [emailRegister, setEmailRegister] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
-  const [nameError, setNameError] = useState(false);
+  const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [openErrorModal, setOpenErrorModal] = useState(false);
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -61,71 +63,71 @@ export default function ProfilePopover() {
   const handleEmailChange = (event) => {
     const value = event.target.value;
     setEmailRegister(value);
-/*     const requiredDomain = "@stud.noroff.no";
+    const requiredDomain = "@stud.noroff.no";
     if (!value.toLowerCase().includes(requiredDomain.toLowerCase())) {
       setEmailError("Email must contain @stud.noroff.no");
     } else {
       setEmailError("");
-    } */
+    }
   };
 
   const handlePasswordChange = (event) => {
     const value = event.target.value;
     setPasswordRegister(value);
+    if (value.length < 8) {
+      setPasswordError("Password must contain at least 8 characters");
+    } else {
+      setPasswordError("");
+    }
   };
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
 
-    const isNameValid = name.length >= 3;
-    const isEmailValid = emailRegister.toLowerCase().includes("@stud.noroff.no");
-    const isPasswordValid = passwordRegister.length >= 8;
+    try {
+      const data = {
+        name: name,
+        email: emailRegister,
+        password: passwordRegister,
+      };
+      await postData(`${API_BASE_URL}auth/register`, data);
 
-    if (!isNameValid || !isEmailValid || !isPasswordValid) {
-      setNameError(isNameValid ? "" : "Name must contain at least 3 characters");
-      setEmailError(isEmailValid ? "" : "Email must contain @stud.noroff.no");
-      setPasswordError(isPasswordValid ? "" : "Password must contain at least 8 characters");
-    } else {
-      try {
-        const data = {
-          name: name,
-          email: emailRegister,
-          password: passwordRegister,
-        };
-        await postData(`${API_BASE_URL}/auth/create-api-key`, data);
-
-        setName("");
-        setEmailRegister("");
-        setPasswordRegister("");
-        setOpenModal(false);
-        setAnchorEl(null);
-        console.log(data);
-        navigate("/profile");
-      } catch (error) {
-        console.error("Error", error);
-      }
+      setName("");
+      setEmailRegister("");
+      setPasswordRegister("");
+      setOpenModal(false);
+      setAnchorEl(null);
+      console.log(data);
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error", error);
     }
   };
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
 
-      try {
-        const data = {
-          email: emailLogin,
-          password: passwordLogin,
-        };
-        await postData(`${API_BASE_URL}/auth/login`, data);
+    try {
+      const data = {
+        email: emailLogin,
+        password: passwordLogin,
+      };
+      await postData(`${API_BASE_URL}auth/login`, data);
+      console.log(data);
+      setEmailLogin("");
+      setPasswordLogin("");
+      setOpenModal(false);
+      setAnchorEl(null);
+      navigate("/profile");
+    } catch (error) {
+      setOpenErrorModal(true);
+    }
+  };
 
-        setEmailLogin("");
-        setPasswordLogin("");
-        setOpenModal(false);
-        setAnchorEl(null);
-        navigate("/venues");
-      } catch (error) {
-        console.error("Error", error);
-      }
-    };
+  const handleCloseErrorModal = () => {
+    setOpenErrorModal(false);
+  };
+
 
   return (
     <div>
@@ -224,7 +226,7 @@ export default function ProfilePopover() {
                         label="Your Noroff email"
                         variant="standard"
                         value={emailLogin}
-          
+                        onChange={(e) => setEmailLogin(e.target.value)}
                       />
                     </Box>
                     <Box
@@ -245,7 +247,7 @@ export default function ProfilePopover() {
                         label="Your password"
                         variant="standard"
                         value={passwordLogin}
-               
+                        onChange={(e) => setPasswordLogin(e.target.value)}
                       />
                     </Box>
                     <Button
@@ -259,6 +261,13 @@ export default function ProfilePopover() {
                       login
                     </Button>
                   </form>
+                 < FeedbackModal 
+                    isOpen={openErrorModal}
+                    handleClose={handleCloseErrorModal}
+                    primaryText='Error'
+                    secondaryText='Login failed, please try again.'
+                    handleOnClick={handleCloseErrorModal}
+                    />
                 </Box>
                 <Box
                   sx={{

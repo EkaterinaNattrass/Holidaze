@@ -2,7 +2,7 @@ import React from "react";
 import { CssBaseline } from "@mui/material";
 import LandingImageSection from "../components/landingImageSection";
 import LandingClientSection from "../components/landingClientSection";
-import LandingOwnerSection from "../components/landingOwnerSection.jsx";
+import LandingOwnerSection from "../components/landingOwnerSection";
 
 export default function LandingPage() {
   return (
