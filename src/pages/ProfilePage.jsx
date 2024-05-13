@@ -1,6 +1,6 @@
 import { Box, Typography, Button, Paper } from "@mui/material";
-//import React, { useState, useEffect} from "react";
-//import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { /* Link, */ useParams } from "react-router-dom";
 import {
   AddAPhoto,
   Person,
@@ -9,10 +9,47 @@ import {
   Home,
   AccountBox,
 } from "@mui/icons-material";
+import { loadFromLocalStorage } from "../components/utils/localStorage";
+import { API_BASE_URL } from "../components/utils/constants";
+import { getData } from "../components/utils/getData";
 
 export default function ProfilePage() {
-  //const [ profile, setProfile] = useState({});
-  //const [ booki]
+  const [profile, setProfile] = useState({});
+ /*  const [venueManagerProfile, setVenueManagerProfile] = useState(null);
+  const [customerProfile, setCustomerProfile] = useState(null);
+  const [newProfile, setNewProfile] = useState(null); */
+  const [bookingsCount, setBookingsCount] = useState(0);
+
+  let { name } = useParams();
+
+  useEffect(() => {
+
+     const storedProfile = loadFromLocalStorage("profile");
+     setProfile(storedProfile);
+
+   async function getProfile() {
+      if (storedProfile) {
+        try {
+          const profileData = await getData(
+            `${API_BASE_URL}holidaze/profiles/${storedProfile.name}`
+          )
+          console.log(profileData)
+          setBookingsCount(profileData._count.bookings);
+        
+       /*    if (profileData.data.venueManager) {
+            setVenueManagerProfile(profileData.data);
+          } else if (profileData.data.Customer) {
+            setCustomerProfile(profileData.data);
+          } else {
+            setNewProfile(profileData.data);
+          } */
+     } catch (error) {
+          console.log(error);
+        }}
+    } ;
+    getProfile();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -58,15 +95,16 @@ export default function ProfilePage() {
       <Box sx={{ width: { xs: "90%", md: "60%" } }}>
         <Paper sx={{ height: "10rem", width: "20rem" }}>
           <Typography sx={{ padding: "1rem", fontSize: "1.5rem" }}>
-            <Person sx={{ marginRight: "1rem" }} /> Karon
+            <Person sx={{ marginRight: "1rem" }} /> {name} 
           </Typography>
           <Typography sx={{ padding: "1rem", fontSize: "1.5rem" }}>
             <AlternateEmail sx={{ marginRight: "1rem" }} />
-            karon@stud.noroff.no
+        
           </Typography>
         </Paper>
       </Box>
-      <Paper>
+     {/*  {customerProfile && ( */}
+        <Paper>
           <Typography
             sx={{
               padding: "1rem",
@@ -78,13 +116,16 @@ export default function ProfilePage() {
             />
             Your bookings
           </Typography>
-      </Paper>
-      <Paper>
-        <Typography sx={{ padding: "1rem", fontSize: "1.5rem" }}>
-          <Home sx={{ color: "primary.main", marginRight: "1rem" }} /> Your
-          venues
-        </Typography>
-      </Paper>
+        </Paper>
+{/*       )}
+      {venueManagerProfile && ( */}
+        <Paper>
+          <Typography sx={{ padding: "1rem", fontSize: "1.5rem" }}>
+            <Home sx={{ color: "primary.main", marginRight: "1rem" }} /> Your
+            venues
+          </Typography>
+        </Paper>
+  {/*     )} */}
     </Box>
   );
 }

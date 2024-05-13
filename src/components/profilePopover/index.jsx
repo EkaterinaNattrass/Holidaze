@@ -10,6 +10,7 @@ import { postData } from "../utils/postData";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../utils/constants";
 import FeedbackModal from "../feedbackModal";
+import { loadFromLocalStorage, saveToLocalStorage } from "../utils/localStorage";
 
 export default function ProfilePopover() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -49,6 +50,7 @@ export default function ProfilePopover() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [openErrorModal, setOpenErrorModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -97,11 +99,18 @@ export default function ProfilePopover() {
       setPasswordRegister("");
       setOpenModal(false);
       setAnchorEl(null);
-      console.log(data);
+      setIsLoggedIn(true);
       navigate("/profile");
     } catch (error) {
       console.error("Error", error);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/");
+    setAnchorEl(null);
   };
 
   const handleSubmitLogin = async (e) => {
@@ -112,22 +121,23 @@ export default function ProfilePopover() {
         email: emailLogin,
         password: passwordLogin,
       };
-      await postData(`${API_BASE_URL}auth/login`, data);
-      console.log(data);
+      const profile = await postData(`${API_BASE_URL}auth/login`, data);
       setEmailLogin("");
       setPasswordLogin("");
       setOpenModal(false);
       setAnchorEl(null);
-      navigate("/profile");
-    } catch (error) {
+      setIsLoggedIn(true);
+      saveToLocalStorage("profile", profile.data);
+      saveToLocalStorage("token", profile.accessToken);
+      navigate(`/profile/${profile.data.name}`); 
+    } catch (error) { 
       setOpenErrorModal(true);
-    }
+    } 
   };
 
   const handleCloseErrorModal = () => {
     setOpenErrorModal(false);
   };
-
 
   return (
     <div>
@@ -160,12 +170,18 @@ export default function ProfilePopover() {
             alignItems: "center",
           }}
         >
-          <Box sx={{ marginY: "1rem" }}>
-            <Button onClick={handleOpenModal}>Customer</Button>
-          </Box>
-          <Box>
-            <Button onClick={handleOpenModal}>Owner</Button>
-          </Box>
+          {isLoggedIn ? (
+            <Button onClick={handleLogout}>Logout</Button>
+          ) : (
+            <>
+              <Box sx={{ marginY: "1rem" }}>
+                <Button onClick={handleOpenModal}>Customer</Button>
+              </Box>
+              <Box>
+                <Button onClick={handleOpenModal}>Owner</Button>
+              </Box>
+            </>
+          )}
           <Modal
             open={openModal}
             onClose={handleCloseModal}
@@ -261,13 +277,13 @@ export default function ProfilePopover() {
                       login
                     </Button>
                   </form>
-                 < FeedbackModal 
+                  <FeedbackModal
                     isOpen={openErrorModal}
                     handleClose={handleCloseErrorModal}
-                    primaryText='Error'
-                    secondaryText='Login failed, please try again.'
+                    primaryText="Error"
+                    secondaryText="Login failed, please try again."
                     handleOnClick={handleCloseErrorModal}
-                    />
+                  />
                 </Box>
                 <Box
                   sx={{

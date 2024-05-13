@@ -18,7 +18,7 @@ import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { API_BASE_URL } from "../components/utils/constants";
 
-const API_URL = API_BASE_URL + `/venues`;
+const API_URL = API_BASE_URL + `holidaze/venues`;
 
 export default function HomePage() {
   const [venues, setVenues] = useState([]);
@@ -49,7 +49,7 @@ export default function HomePage() {
   return (
     <>
       <Box sx={{ p: 2, mt: "5rem", minHeight: "90vh" }}>
-        <Box
+        <Box key='venue'
           component="form"
           sx={{
             "& > :not(style)": { m: 2, width: "25ch", height: "15ch" },

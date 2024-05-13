@@ -46,7 +46,7 @@ function App() {
               <Route path="clients" element={<ClientsPage />} />
               <Route path="services" element={<ServicesPage />} />
               <Route path="contacts" element={<ContactsPage />} />
-              <Route path="profile" element={<ProfilePage />} />
+              <Route path="profile/:name" element={<ProfilePage />} />
             </Route>
           </Routes>
         </CartProvider>

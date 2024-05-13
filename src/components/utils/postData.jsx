@@ -10,6 +10,7 @@ export const postData = async (url, body) => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${loadFromLocalStorage("token")}`,
+          "X-Noroff-API-Key": process.env.REACT_APP_API_KEY
         },
         body: JSON.stringify(body),
       });
