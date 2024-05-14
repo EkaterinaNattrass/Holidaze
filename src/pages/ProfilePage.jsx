@@ -4,7 +4,6 @@ import { /* Link, */ useParams } from "react-router-dom";
 import {
   Person,
   AlternateEmail,
-  BookmarkAdded,
   Home,
   AddAPhoto,
 } from "@mui/icons-material";
@@ -58,7 +57,7 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{minHeight: '95vh'}}> 
       <Box
         sx={{
           backgroundColor: "secondary.main",
@@ -72,8 +71,9 @@ export default function ProfilePage() {
           height: "300px",
           width: "300px",
           borderRadius: "50%",
+          border: '2px solid white',
           overflow: "hidden",
-          position: "absollute",
+          position: "absolute",
           marginLeft: "3rem",
           transform: "translateY(-50%)",
           zIndex: 1,
@@ -105,18 +105,18 @@ export default function ProfilePage() {
         handleClose={handleClose}
         handleOpen={handleOpen}
       />
-      <Box sx={{ width: { xs: "90%", md: "60%" } }}>
-        <Paper sx={{ height: "10rem", width: "20rem" }}>
-          <Typography sx={{ padding: "1rem", fontSize: "1.5rem" }}>
+
+      <Box sx={{display: 'flex'}}>
+       
+      <Box sx={{ width: { xs: "90%", md: "60%" }, marginLeft: '6rem', marginTop: '13rem' }}>
+          <Typography sx={{ fontSize: "1.3rem", fontWeight: 600 }}>
             <Person sx={{ marginRight: "1rem" }} /> {name}
           </Typography>
-          <Typography sx={{ padding: "1rem", fontSize: "1.5rem" }}>
+          <Typography sx={{ fontSize: "1.3rem", fontWeight: 200 }}>
             <AlternateEmail sx={{ marginRight: "1rem" }} />
             {profile.email}
           </Typography>
-        </Paper>
       </Box>
-      {/*  {customerProfile && ( */}
       <Paper>
         <Typography
           sx={{
@@ -124,18 +124,18 @@ export default function ProfilePage() {
             fontSize: "1.5rem",
           }}
         >
-          <BookmarkAdded sx={{ color: "primary.main", marginRight: "1rem" }} />
+          <Home sx={{ color: "primary.main", marginRight: "1rem" }} />
           Your bookings
         </Typography>
       </Paper>
-      {/*       )}
-      {venueManagerProfile && ( */}
+  
       <Paper>
         <Typography sx={{ padding: "1rem", fontSize: "1.5rem" }}>
           <Home sx={{ color: "primary.main", marginRight: "1rem" }} /> Your
           venues
         </Typography>
       </Paper>
+    </Box>
     </Box>
   );
 }

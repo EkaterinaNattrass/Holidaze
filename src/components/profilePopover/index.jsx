@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Box,
-  Popover,
-  Modal,
-  TextField,
-} from "@mui/material";
+import { Button, Box, Popover, Modal, TextField } from "@mui/material";
 import { postData } from "../utils/postData";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../utils/constants";
@@ -100,7 +94,6 @@ export default function ProfilePopover() {
       setPasswordRegister("");
       setOpenConfirmationModal(true);
       saveToLocalStorage("profile", profile.data);
-      
     } catch (error) {
       console.error("Error", error);
     }
@@ -129,10 +122,10 @@ export default function ProfilePopover() {
       setIsLoggedIn(true);
       saveToLocalStorage("profile", profile.data);
       saveToLocalStorage("token", profile.data.accessToken);
-      navigate(`/profile/${profile.data.name}`); 
-    } catch (error) { 
+      navigate(`/profile/${profile.data.name}`);
+    } catch (error) {
       setOpenErrorModal(true);
-    } 
+    }
   };
 
   const handleCloseErrorModal = () => {
@@ -140,8 +133,8 @@ export default function ProfilePopover() {
   };
 
   const handleCloseConfirmationModal = () => {
-    setOpenConfirmationModal(false)
-  }
+    setOpenConfirmationModal(false);
+  };
 
   return (
     <div>
@@ -175,7 +168,12 @@ export default function ProfilePopover() {
           }}
         >
           {isLoggedIn ? (
-            <Button onClick={handleLogout}>Logout</Button>
+            <>
+              <Button navigate={`/profile/${name}`}>Profile</Button>
+              <Button sx={{ marginY: "1rem" }} onClick={handleLogout}>
+                Logout
+              </Button>
+            </>
           ) : (
             <>
               <Box sx={{ marginY: "1rem" }}>
