@@ -10,7 +10,7 @@ import { postData } from "../utils/postData";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../utils/constants";
 import FeedbackModal from "../feedbackModal";
-import { loadFromLocalStorage, saveToLocalStorage } from "../utils/localStorage";
+import { saveToLocalStorage } from "../utils/localStorage";
 
 export default function ProfilePopover() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -51,6 +51,7 @@ export default function ProfilePopover() {
   const [passwordError, setPasswordError] = useState("");
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -92,15 +93,14 @@ export default function ProfilePopover() {
         email: emailRegister,
         password: passwordRegister,
       };
-      await postData(`${API_BASE_URL}auth/register`, data);
+      const profile = await postData(`${API_BASE_URL}auth/register`, data);
 
       setName("");
       setEmailRegister("");
       setPasswordRegister("");
-      setOpenModal(false);
-      setAnchorEl(null);
-      setIsLoggedIn(true);
-      navigate("/profile");
+      setOpenConfirmationModal(true);
+      saveToLocalStorage("profile", profile.data);
+      
     } catch (error) {
       console.error("Error", error);
     }
@@ -128,7 +128,7 @@ export default function ProfilePopover() {
       setAnchorEl(null);
       setIsLoggedIn(true);
       saveToLocalStorage("profile", profile.data);
-      saveToLocalStorage("token", profile.accessToken);
+      saveToLocalStorage("token", profile.data.accessToken);
       navigate(`/profile/${profile.data.name}`); 
     } catch (error) { 
       setOpenErrorModal(true);
@@ -138,6 +138,10 @@ export default function ProfilePopover() {
   const handleCloseErrorModal = () => {
     setOpenErrorModal(false);
   };
+
+  const handleCloseConfirmationModal = () => {
+    setOpenConfirmationModal(false)
+  }
 
   return (
     <div>
@@ -283,6 +287,13 @@ export default function ProfilePopover() {
                     primaryText="Error"
                     secondaryText="Login failed, please try again."
                     handleOnClick={handleCloseErrorModal}
+                  />
+                  <FeedbackModal
+                    isOpen={openConfirmationModal}
+                    handleClose={handleCloseConfirmationModal}
+                    primaryText="Success"
+                    secondaryText="You are registered now. Please, login using your account details."
+                    handleOnClick={handleCloseConfirmationModal}
                   />
                 </Box>
                 <Box

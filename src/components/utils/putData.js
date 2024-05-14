@@ -1,12 +1,13 @@
-import { loadFromLocalStorage } from "../Utility/localStorage";
+import { loadFromLocalStorage } from "../utils/localStorage";
 
-export const putData = async (url, body) => {
+const putData = async (url, body) => {
   try {
     const response = await fetch(url, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${loadFromLocalStorage("token")}`,
+        "Authorization": `Bearer ${loadFromLocalStorage("token")}`,
+        "X-Noroff-API-Key": process.env.REACT_APP_API_KEY
       },
       body: JSON.stringify(body),
     });
@@ -24,3 +25,5 @@ export const putData = async (url, body) => {
     throw error; 
   }
 };
+
+export default putData;
