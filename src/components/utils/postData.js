@@ -1,20 +1,22 @@
-import { loadFromLocalStorage } from "../utils/localStorage";
+import { loadFromLocalStorage } from "./localStorage";
 
 export const postData = async (url, body) => {
   try {
     let response;
     const token = loadFromLocalStorage("token");
     if (token) {
+      console.log('body', body)
       response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${loadFromLocalStorage("token")}`,
+          "Authorization": `Bearer ${loadFromLocalStorage("token")}`,
           "X-Noroff-API-Key": process.env.REACT_APP_API_KEY
         },
         body: JSON.stringify(body),
       });
     } else {
+      console.log('body', body)
       response = await fetch(url, {
         method: "POST",
         headers: {
