@@ -11,18 +11,20 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import PaidIcon from "@mui/icons-material/Paid";
-import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
-import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
-import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import { API_BASE_URL } from "../components/utils/constants";
+import {
+  Search,
+  Paid,
+  HotelRounded,
+  FmdGoodRounded,
+  StarRounded,
+} from "@mui/icons-material";
+import { API_BASE_URL } from "../utils/constants";
 
 const API_URL = API_BASE_URL + `holidaze/venues`;
 
 export default function HomePage() {
   const [venues, setVenues] = useState([]);
- const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [search, setSearch] = useState("");
 
   const handleOnSubmit = async (e) => {
@@ -42,14 +44,15 @@ export default function HomePage() {
       }
     }
     getVenues();
-  }, []); 
- if (isError) {
+  }, []);
+  if (isError) {
     return <div>Error loading data</div>;
   }
   return (
     <>
       <Box sx={{ p: 2, mt: "5rem", minHeight: "90vh" }}>
-        <Box key='venue'
+        <Box
+          key="venue"
           component="form"
           sx={{
             "& > :not(style)": { m: 2, width: "25ch", height: "15ch" },
@@ -69,7 +72,7 @@ export default function HomePage() {
               startAdornment: (
                 <InputAdornment position="start">
                   <IconButton>
-                    <SearchIcon color="secondary" />
+                    <Search color="secondary" />
                   </IconButton>
                 </InputAdornment>
               ),
@@ -86,26 +89,32 @@ export default function HomePage() {
             })
             .map((venue) => (
               <Grid xs={12} sm={6} md={4} lg={3}>
-                <Card key={venue.id}
+                <Card
+                  key={venue.id}
                   sx={{
                     backgroundColor: "#FBFAF8",
-                    maxWidth: "25rem"
+                    maxWidth: "25rem",
                   }}
                 >
-                     <Link to={`/venues/${venue.id}`}>
-                      <CardMedia
-                    sx={{ height: 300 }}
-                    image= { venue.media && venue.media.url ? venue.media.url : "/images/photos/house-for-rent.jpg"}
-                    alt={venue.media?.alt}
-                  />
-                    </Link>
-                  
+                  <Link to={`/venues/${venue.id}`}>
+                    <CardMedia
+                      sx={{ height: 300 }}
+                      image={
+                        venue.media && venue.media.url
+                          ? venue.media.url
+                          : "/images/photos/house-for-rent.jpg"
+                      }
+                      alt={venue.media?.alt}
+                    />
+                  </Link>
+
                   <CardContent>
                     <Box
                       sx={{ display: "flex", justifyContent: "space-between" }}
                     >
                       <Box>
-                        <Typography key={venue.id}
+                        <Typography
+                          key={venue.id}
                           sx={{
                             textTransform: "upperCase",
                             fontWeight: "400",
@@ -117,7 +126,7 @@ export default function HomePage() {
                         </Typography>
                       </Box>
                       <Box sx={{ display: "flex" }}>
-                        <StarRoundedIcon
+                        <StarRounded
                           sx={{ color: "primary.main", marginRight: "0.3rem" }}
                         />
                         <Typography sx={{ fontWeight: "100" }} key={venue.id}>
@@ -126,16 +135,18 @@ export default function HomePage() {
                       </Box>
                     </Box>
                     <Box sx={{ display: "flex" }}>
-                      <FmdGoodRoundedIcon
+                      <FmdGoodRounded
                         sx={{ color: "primary.main", marginRight: "0.5rem" }}
                       />
                       <Typography sx={{ fontWeight: "100" }} key={venue.id}>
-                      {venue.location && venue.location.city !== null ? venue.location.city : 'Unknown'}
+                        {venue.location && venue.location.city !== null
+                          ? venue.location.city
+                          : "Unknown"}
                       </Typography>
                     </Box>
 
                     <Box sx={{ display: "flex" }}>
-                      <HotelRoundedIcon
+                      <HotelRounded
                         sx={{ color: "primary.main", marginRight: "0.5rem" }}
                       />
                       <Typography sx={{ fontWeight: "100" }} key={venue.id}>
@@ -144,7 +155,7 @@ export default function HomePage() {
                     </Box>
 
                     <Box sx={{ display: "flex" }}>
-                      <PaidIcon
+                      <Paid
                         sx={{ color: "primary.main", marginRight: "0.5rem" }}
                       />
                       <Typography sx={{ fontWeight: "400" }}>

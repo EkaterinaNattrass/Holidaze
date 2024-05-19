@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, Modal, TextField } from "@mui/material";
-import { postData } from "../utils/postData";
-import { API_BASE_URL } from "../utils/constants";
+import { postData } from "../../utils/postData";
+import { API_BASE_URL } from "../../utils/constants";
 
-const CreateNewVenue = ({ isNewVenueShown, handleNewVenueClose }) => {
+export default function CreateNewVenue({ isNewVenueShown, handleNewVenueClose }) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -328,4 +328,3 @@ const CreateNewVenue = ({ isNewVenueShown, handleNewVenueClose }) => {
   );
 };
 
-export default CreateNewVenue;

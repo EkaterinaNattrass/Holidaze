@@ -2,10 +2,10 @@ import { Button, Box, Typography, Paper } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { /* Link, */ useParams } from "react-router-dom";
 import { Person, AlternateEmail, Home, AddAPhoto } from "@mui/icons-material";
-import { loadFromLocalStorage } from "../components/utils/localStorage";
-import { API_BASE_URL } from "../components/utils/constants";
-import { getData } from "../components/utils/getData";
-import { EditAvatar } from "../components/editAvatar";
+import { loadFromLocalStorage } from "../utils/localStorage";
+import { API_BASE_URL } from "../utils/constants";
+import { getData } from "../utils/getData";
+import EditAvatar from "../components/editAvatar";
 import CreateNewVenue from "../components/createNewVenue";
 
 export default function ProfilePage() {

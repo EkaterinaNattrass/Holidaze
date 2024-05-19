@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import putData from "../utils/putData";
-import { API_BASE_URL } from "../utils/constants";
-import { loadFromLocalStorage } from "../utils/localStorage";
+import putData from "../../utils/putData";
+import { API_BASE_URL } from "../../utils/constants";
+import { loadFromLocalStorage } from "../../utils/localStorage";
 import {
   Dialog,
   DialogTitle,
@@ -12,7 +11,7 @@ import {
   Button,
 } from "@mui/material";
 
-export const EditAvatar = ({ isShown, handleClose, handleAvatarUpdate }) => {
+export default function EditAvatar ({ isShown, handleClose, handleAvatarUpdate }) {
   
   const [media, setMedia] = useState("");
 
