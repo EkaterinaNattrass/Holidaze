@@ -64,9 +64,8 @@ export default function DetailsPage() {
           <Box
             sx={{
               backgroundImage: `url(${
-                venue.media && venue.media.url
-                  ? venue.media.url
-                  : "/images/photos/house-for-rent.jpg"
+                venue.media?.[0].url
+                  || "/images/photos/house-for-rent.jpg"
               })`,
               backgroundSize: "cover",
               backgroundPosition: "center",
@@ -86,7 +85,8 @@ export default function DetailsPage() {
             <Box
               sx={{
                 backgroundImage: `url(${
-                  venue.media?.url || "/images/photos/living-room.jpg"
+                  venue.media?.[1]?.url
+                    || "/images/photos/living-room.jpg"
                 })`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -97,7 +97,8 @@ export default function DetailsPage() {
             <Box
               sx={{
                 backgroundImage: `url(${
-                  venue.media?.url || "/images/photos/bedroom.jpg"
+                  venue.media?.[2]?.url
+                    || "/images/photos/bedroom.jpg"
                 })`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",

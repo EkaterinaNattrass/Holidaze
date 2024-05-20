@@ -1,34 +1,26 @@
 import { Button, Box, Typography, Paper } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { /* Link, */ useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Person, AlternateEmail, Home, AddAPhoto } from "@mui/icons-material";
 import { loadFromLocalStorage } from "../utils/localStorage";
 import { API_BASE_URL } from "../utils/constants";
 import { getData } from "../utils/getData";
 import EditAvatar from "../components/editAvatar";
 import CreateNewVenue from "../components/createNewVenue";
+import RenderVenues from "../components/renderVenues";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState({});
   const [bookingsCount, setBookingsCount] = useState(0);
-  const [isShown, setIsShown] = useState(false);
-  const [isNewVenueShown, setIsNewVenueShown] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [avatar, setAvatar] = useState({ url: "", alt: "" });
 
   const handleOpen = () => {
-    setIsShown(true);
+    setIsDialogOpen(true);
   };
 
   const handleClose = () => {
-    setIsShown(false);
-  };
-
-  const handleNewVenueOpen = () => {
-    setIsNewVenueShown(true);
-  };
-
-  const handleNewVenueClose = () => {
-    setIsNewVenueShown(false);
+    setIsDialogOpen(false);
   };
 
   const handleAvatarUpdate = (newAvatar) => {
@@ -113,9 +105,9 @@ export default function ProfilePage() {
         </Button>
       </Box>
       <EditAvatar
-        isShown={isShown}
+        isShown={isDialogOpen}
         handleClose={handleClose}
-        handleOpen={handleOpen}
+        handleAvatarUpdate={handleAvatarUpdate}
       />
 
       <Box sx={{ display: "flex", flexDirection: { xs: "column" } }}>
@@ -135,40 +127,52 @@ export default function ProfilePage() {
           </Typography>
         </Box>
         <Box>
-          {/*         { profile.venueManager && */}
-         
-          <CreateNewVenue />
-          {/* } */}
-          <Paper
-            sx={{
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              width: { xs: "20rem", md: "40rem" },
-            }}
-          >
-            <Typography
+          {profile.venueManager && (
+            <Box
               sx={{
-                padding: "1rem",
-                fontSize: "1.3rem",
-                fontWeight: 200,
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                justifyContent: { md: "space-around" },
               }}
             >
-              <Home sx={{ color: "primary.main", marginRight: "1rem" }} />
-              Your bookings
-            </Typography>
-          </Paper>
-          <Paper
-            sx={{
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-              width: { xs: "20rem", md: "40rem" },
-            }}
-          >
-            <Typography
-              sx={{ padding: "1rem", fontSize: "1.3rem", fontWeight: 200 }}
+              <Box sx={{ marginY: "2rem" }}>
+                <CreateNewVenue />
+              </Box>
+              <Paper
+                sx={{
+                  boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                  width: { xs: "100%", md: "40rem" },
+                }}
+              >
+                <Typography
+                  sx={{ padding: "1rem", fontSize: "1.3rem", fontWeight: 200 }}
+                >
+                  <Home sx={{ color: "primary.main", marginRight: "1rem" }} />{" "}
+                  Your venues
+                </Typography>
+                < RenderVenues />
+              </Paper>
+            </Box>
+          )}
+          {!profile.venueManager && (
+            <Paper
+              sx={{
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                width: { xs: "20rem", md: "40rem" },
+              }}
             >
-              <Home sx={{ color: "primary.main", marginRight: "1rem" }} /> Your
-              venues
-            </Typography>
-          </Paper>
+              <Typography
+                sx={{
+                  padding: "1rem",
+                  fontSize: "1.3rem",
+                  fontWeight: 200,
+                }}
+              >
+                <Home sx={{ color: "primary.main", marginRight: "1rem" }} />
+                Your bookings
+              </Typography>
+            </Paper>
+          )}
         </Box>
       </Box>
     </Box>

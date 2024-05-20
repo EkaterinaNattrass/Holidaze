@@ -3,7 +3,6 @@ import { loadFromLocalStorage } from "../utils/localStorage";
 export const getData = async (url) => {
   let response;
   const token = loadFromLocalStorage("token");
-  console.log("tokening", token);
   if (token) {
     response = await fetch(url, {
       method: "GET",

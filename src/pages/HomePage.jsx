@@ -19,6 +19,7 @@ import {
   StarRounded,
 } from "@mui/icons-material";
 import { API_BASE_URL } from "../utils/constants";
+import { getData } from "../utils/getData";
 
 const API_URL = API_BASE_URL + `holidaze/venues`;
 
@@ -35,9 +36,8 @@ export default function HomePage() {
     async function getVenues() {
       try {
         setIsError(false);
-        const response = await fetch(API_URL);
-        const result = await response.json();
-        const APIproducts = result.data;
+        const response = await getData(API_URL);
+        const APIproducts = response.data;
         setVenues(APIproducts);
       } catch (err) {
         setIsError(true);
@@ -97,16 +97,13 @@ export default function HomePage() {
                   }}
                 >
                   <Link to={`/venues/${venue.id}`}>
-                    <CardMedia
-                      sx={{ height: 300 }}
-                      image={
-                        venue.media && venue.media.url
-                          ? venue.media.url
-                          : "/images/photos/house-for-rent.jpg"
-                      }
-                      alt={venue.media?.alt}
-                    />
-                  </Link>
+              <CardMedia
+                sx={{ height: 300 }}
+                image={venue.media?.[0]?.url || "/images/photos/house-for-rent.jpg"
+                }
+                alt={venue.media?.[0]?.alt}
+              />
+            </Link>
 
                   <CardContent>
                     <Box

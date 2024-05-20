@@ -8,15 +8,13 @@ import {
   Button,
 } from "@mui/material";
 
-const FeedbackModal = (props) => {
-  const {
+export default function FeedbackModal ({
     isOpen,
-    handleClose,
     primaryText,
     secondaryText,
     handleOnClick,
-  } = props;
-
+    handleClose
+  }) {
   return (
     <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle>{primaryText}</DialogTitle>
@@ -32,4 +30,3 @@ const FeedbackModal = (props) => {
   );
 };
 
-export default FeedbackModal;

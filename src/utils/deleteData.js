@@ -1,4 +1,4 @@
-import { loadFromLocalStorage } from "../Utility/localStorage";
+import { loadFromLocalStorage } from "../utils/localStorage";
 
 export const deleteData = async (url) => {
   try {
@@ -6,19 +6,15 @@ export const deleteData = async (url) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${loadFromLocalStorage("token")}`,
+        "Authorization": `Bearer ${loadFromLocalStorage("token")}`,
+        "X-Noroff-API-Key": process.env.REACT_APP_API_KEY
       },
     });
-
-    if (!response.ok) {
-      const data = await response.json();
-      throw new Error(
-        `The API server responded with ${response.status}`
-      );
-    }
-
-    return response.json();
-  } catch (error) {
+    if (response.ok) {
+      return;} else {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+    }  catch (error) {
     console.error("An error occurred:", error);
     throw error;
   }

@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mui/material";
 
-export default function EditAvatar ({ isShown, handleClose, handleAvatarUpdate }) {
+export default function EditAvatar ({ isShown, handleClose }) {
   
   const [media, setMedia] = useState("");
 

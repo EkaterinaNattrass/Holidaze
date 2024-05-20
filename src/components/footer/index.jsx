@@ -58,7 +58,7 @@ export default function Footer() {
         </Box>
         <Box sx={{marginTop: '1.5rem'}}>
           <NavLink to="/contacts" style={{ textDecoration: "none" }}>
-          <Button variant="text" sx={{color:'black'}}>
+          <Button variant="text" disabled sx={{color:'black'}}>
               Our Contacts
             </Button>
           </NavLink>
