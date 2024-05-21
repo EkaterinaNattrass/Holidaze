@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../../utils/constants";
 import NewVenueInput from "../newVenueInput";
 import FeedbackModal from "../feedbackModal";
 
-export default function CreateNewVenue() {
+export default function CreateNewVenue({ handleCloseVenue }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [mediaUrl, setMediaUrl] = useState("");
@@ -50,7 +50,7 @@ export default function CreateNewVenue() {
   const handlePriceChange = (e) => {
     const value = e.target.value;
     setPrice(value);
-   if (!value) {
+    if (!value) {
       setPriceError("Price is required");
     } else if (isNaN(parseFloat(value))) {
       setPriceError("Price must be a number");
@@ -137,118 +137,122 @@ export default function CreateNewVenue() {
       setPets("no");
       console.log(venue);
       setOpenConfirmationModal(true);
+      handleCloseVenue();
     } catch (error) {
       setOpenErrorModal(true);
     }
   };
 
   return (
-    <Box>
-    <form onSubmit={onFormSubmit}>
-      <NewVenueInput
-        isRequired={true}
-        input={"name"}
-        handleInputChange={handleNameChange}
-        inputError={nameError}
-      />
-      <NewVenueInput
-        isRequired={true}
-        input={"description"}
-        handleInputChange={handleDescriptionChange}
-        inputError={descriptionError}
-      />
-      <NewVenueInput
-        isRequired={true}
-        input={"mediaUrl"}
-        handleInputChange={(e) => setMediaUrl(e.target.value)}
-      />
-      <NewVenueInput
-        isRequired={true}
-        input={"mediaAlt"}
-        handleInputChange={(e) => setMediaAlt(e.target.value)}
-      />
-      <NewVenueInput
-        isRequired={true}
-        input={"price"}
-        handleInputChange={handlePriceChange}
-        inputError={priceError}
-      />
-      <NewVenueInput
-        isRequired={true}
-        input={"maxGuests"}
-        handleInputChange={handleMaxGuestsChange}
-        inputError={maxGuestsError}
-      />
-      <NewVenueInput
-        isRequired={true}
-        input={"rating"}
-        handleInputChange={handleRatingChange}
-        inputError={ratingError}
-      />
-      <NewVenueInput
-        isRequired={false}
-        input={"city"}
-        handleInputChange={(e) => setCity(e.target.value)}
-      />
-      <NewVenueInput
-        isRequired={false}
-        input={"country"}
-        handleInputChange={(e) => setCountry(e.target.value)}
-      />
-      <Box>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={wifi === "yes"}
-              onChange={(e) => setWifi(e.target.checked ? "yes" : "no")}
-            />
-          }
-          label="Wifi"
+    <Box sx={{ padding: "4rem" }}>
+      <form onSubmit={onFormSubmit}>
+        <NewVenueInput
+          isRequired={true}
+          input={"name"}
+          handleInputChange={handleNameChange}
+          inputError={nameError}
         />
-        <FormControlLabel sx={{marginY: '2rem'}}
-          control={
-            <Checkbox
-              checked={breakfast === "yes"}
-              onChange={(e) => setBreakfast(e.target.checked ? "yes" : "no")}
-            />
-          }
-          label="Breakfast"
+        <NewVenueInput
+          isRequired={true}
+          input={"description"}
+          handleInputChange={handleDescriptionChange}
+          inputError={descriptionError}
         />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={parking === "yes"}
-              onChange={(e) => setParking(e.target.checked ? "yes" : "no")}
-            />
-          }
-          label="Parking"
+        <NewVenueInput
+          isRequired={true}
+          input={"mediaUrl"}
+          handleInputChange={(e) => setMediaUrl(e.target.value)}
         />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={pets === "yes"}
-              onChange={(e) => setPets(e.target.checked ? "yes" : "no")}
-            />
-          }
-          label="Pets"
+        <NewVenueInput
+          isRequired={true}
+          input={"mediaAlt"}
+          handleInputChange={(e) => setMediaAlt(e.target.value)}
         />
-      </Box>
-      <Button type="submit" variant="contained" sx={{marginLeft: '5rem'}}>Create a new venue</Button>
-    </form>
+        <NewVenueInput
+          isRequired={true}
+          input={"price"}
+          handleInputChange={handlePriceChange}
+          inputError={priceError}
+        />
+        <NewVenueInput
+          isRequired={true}
+          input={"maxGuests"}
+          handleInputChange={handleMaxGuestsChange}
+          inputError={maxGuestsError}
+        />
+        <NewVenueInput
+          isRequired={true}
+          input={"rating"}
+          handleInputChange={handleRatingChange}
+          inputError={ratingError}
+        />
+        <NewVenueInput
+          isRequired={false}
+          input={"city"}
+          handleInputChange={(e) => setCity(e.target.value)}
+        />
+        <NewVenueInput
+          isRequired={false}
+          input={"country"}
+          handleInputChange={(e) => setCountry(e.target.value)}
+        />
+        <Box>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={wifi === "yes"}
+                onChange={(e) => setWifi(e.target.checked ? "yes" : "no")}
+              />
+            }
+            label="Wifi"
+          />
+          <FormControlLabel
+            sx={{ marginY: "2rem" }}
+            control={
+              <Checkbox
+                checked={breakfast === "yes"}
+                onChange={(e) => setBreakfast(e.target.checked ? "yes" : "no")}
+              />
+            }
+            label="Breakfast"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={parking === "yes"}
+                onChange={(e) => setParking(e.target.checked ? "yes" : "no")}
+              />
+            }
+            label="Parking"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={pets === "yes"}
+                onChange={(e) => setPets(e.target.checked ? "yes" : "no")}
+              />
+            }
+            label="Pets"
+          />
+        </Box>
+        <Button type="submit" variant="contained" sx={{ marginLeft: "5rem" }}>
+          Create a new venue
+        </Button>
+      </form>
       <FeedbackModal
-      isOpen={openConfirmationModal}
-      handleClose={handleCloseConfirmationModal}
-      primaryText="Success"
-      secondaryText="Your venue is created."
-      handleOnClick={handleCloseConfirmationModal}
-    />
-       <FeedbackModal
+        isOpen={openConfirmationModal}
+        handleClose={handleCloseConfirmationModal}
+        primaryText="Success"
+        secondaryText="Your venue is created."
+        handleOnClick={handleCloseConfirmationModal}
+      />
+      <FeedbackModal
         isOpen={openErrorModal}
         handleClose={handleCloseErrorModal}
         primaryText="Error"
         secondaryText="Something went wrong, please try again."
         handleOnClick={handleCloseErrorModal}
       />
-   </Box>
+    </Box>
   );
 }

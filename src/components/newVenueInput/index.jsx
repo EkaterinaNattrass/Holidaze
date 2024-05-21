@@ -18,7 +18,6 @@ export default function NewVenueInput({
         ml: "1rem",
       }}
       noValidate
-      autoComplete="off"
     >
       <TextField
         required={isRequired}

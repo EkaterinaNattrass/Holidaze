@@ -2,37 +2,29 @@ import { loadFromLocalStorage } from "./localStorage";
 
 export const postData = async (url, body) => {
   try {
-    let response;
     const token = loadFromLocalStorage("token");
+    const headers = {
+      "Content-Type": "application/json",
+      "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
+    };
     if (token) {
-      console.log('body', body)
-      response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${loadFromLocalStorage("token")}`,
-          "X-Noroff-API-Key": process.env.REACT_APP_API_KEY
-        },
-        body: JSON.stringify(body),
-      });
-    } else {
-      console.log('body', body)
-      response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      headers["Authorization"] = `Bearer ${token}`;
     }
-    const data = await response.json();
-    console.log(data);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
 
     if (!response.ok) {
       throw new Error(`The server responded with status ${response.status}`);
     }
 
+    const data = await response.json();
+    console.log(data);
     return data;
+
   } catch (error) {
     console.error("An error occurred:", error);
     throw error;

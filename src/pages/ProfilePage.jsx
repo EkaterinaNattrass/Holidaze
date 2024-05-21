@@ -6,7 +6,7 @@ import { loadFromLocalStorage } from "../utils/localStorage";
 import { API_BASE_URL } from "../utils/constants";
 import { getData } from "../utils/getData";
 import EditAvatar from "../components/editAvatar";
-import CreateNewVenue from "../components/createNewVenue";
+import NewVenueModal from "../components/newVenueModal";
 import RenderVenues from "../components/renderVenues";
 
 export default function ProfilePage() {
@@ -136,7 +136,6 @@ export default function ProfilePage() {
               }}
             >
               <Box sx={{ marginY: "2rem" }}>
-                <CreateNewVenue />
               </Box>
               <Paper
                 sx={{
@@ -150,7 +149,8 @@ export default function ProfilePage() {
                   <Home sx={{ color: "primary.main", marginRight: "1rem" }} />{" "}
                   Your venues
                 </Typography>
-                < RenderVenues />
+                < NewVenueModal />
+                { profile._count.venues > 0 ? < RenderVenues /> : <Box><Typography>You don't have any venues</Typography></Box>  }
               </Paper>
             </Box>
           )}
