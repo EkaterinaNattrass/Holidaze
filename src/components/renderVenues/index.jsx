@@ -13,11 +13,17 @@ import {
   Link,
   Button
 } from "@mui/material";
+import FeedbackModal from "../feedbackModal";
 
 export default function RenderVenues() {
   const [venues, setVenues] = useState([]);
+  const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
   // const [booking, setBooking] = useState({});
   
+  const handleCloseConfirmationModal = () => {
+    setOpenConfirmationModal(false);
+  };
+
   const storedProfile = loadFromLocalStorage("profile");
   useEffect(() => {
     async function getVenues() {
@@ -36,7 +42,8 @@ export default function RenderVenues() {
   const handleDeleteVenue = async (id) => {
     try {
       await deleteData(`${API_BASE_URL}holidaze/venues/${id}`);
-      setVenues((prevVenues) => prevVenues.filter((venue) => venue.id !== id)); 
+      setVenues((prevVenues) => prevVenues.filter((venue) => venue.id !== id));
+      setOpenConfirmationModal(true);
     } catch (err) {
       console.log(err);
     }
@@ -82,6 +89,13 @@ export default function RenderVenues() {
       </CardActions>
           </Card>
       ))}
+      <FeedbackModal
+        isOpen={openConfirmationModal}
+        handleClose={handleCloseConfirmationModal}
+        primaryText="Success"
+        secondaryText="Your venue is deleted."
+        handleOnClick={handleCloseConfirmationModal}
+      />
     </>
   );
 }
