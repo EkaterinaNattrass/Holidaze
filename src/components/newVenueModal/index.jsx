@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Popover, Button } from "@mui/material";
-import CreateNewVenue from "../createNewVenue";
+import NewVenue from "../newVenueForm";
 
 
 export default function NewVenueModal() {
@@ -27,7 +27,7 @@ export default function NewVenueModal() {
           horizontal: "left",
         }}
       >
-     <CreateNewVenue handleCloseVenue={handleCloseVenue} />
+     <NewVenue handleCloseVenue={handleCloseVenue} />
       </Popover>
     </>
     

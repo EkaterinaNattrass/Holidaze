@@ -114,8 +114,8 @@ export default function ProfilePage() {
         <Box
           sx={{
             width: { xs: "90%", md: "60%" },
-            marginLeft: "6rem",
-            marginTop: "13rem",
+            marginLeft: { xs: "35%", md: "8rem" },
+            marginTop: "10rem",
           }}
         >
           <Typography sx={{ fontSize: "1.3rem", fontWeight: 600 }}>
@@ -126,39 +126,61 @@ export default function ProfilePage() {
             {profile.email}
           </Typography>
         </Box>
-        <Box>
+        <Box
+          sx={{
+            display: "flex",
+            width: '100%',
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: { md: "space-around" },
+            border: 'pink solid 1px'
+          }}
+        >
           {profile.venueManager && (
             <Box
               sx={{
+                width: { xs: "100%", md: "80%" },
                 display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                justifyContent: { md: "space-around" },
+                paddingY: "2rem",
               }}
             >
-              <Box sx={{ marginY: "2rem" }}>
-              </Box>
-              <Paper
+              <Box
                 sx={{
-                  boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                  width: { xs: "100%", md: "40rem" },
+                  width: "15rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
                 <Typography
                   sx={{ padding: "1rem", fontSize: "1.3rem", fontWeight: 200 }}
                 >
-                  <Home sx={{ color: "primary.main", marginRight: "1rem" }} />{" "}
+                  <Home
+                    sx={{
+                      color: "primary.main",
+                      marginRight: "1rem",
+                      textAlign: "center",
+                    }}
+                  />
                   Your venues
                 </Typography>
-                < NewVenueModal />
-                { profile._count.venues > 0 ? < RenderVenues /> : <Box><Typography>You don't have any venues</Typography></Box>  }
-              </Paper>
+                <NewVenueModal />
+              </Box>
+                    <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
+                        {profile._count.venues > 0 ? (
+                <RenderVenues />
+              ) : (
+                <Box>
+                  <Typography>You don't have any venues</Typography>
+                </Box>  )}
+                    </Box>
+            
             </Box>
           )}
           {!profile.venueManager && (
             <Paper
               sx={{
                 boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                width: { xs: "20rem", md: "40rem" },
+                width: { xs: "100%", md: "80%" },
               }}
             >
               <Typography

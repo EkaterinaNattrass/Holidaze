@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Box, FormControlLabel, Checkbox } from "@mui/material";
 import { postData } from "../../utils/postData";
 import { API_BASE_URL } from "../../utils/constants";
-import NewVenueInput from "../newVenueInput";
+import VenueInput from "../venueInput";
 import FeedbackModal from "../feedbackModal";
 
 export default function CreateNewVenue({ handleCloseVenue }) {
@@ -138,6 +138,7 @@ export default function CreateNewVenue({ handleCloseVenue }) {
       console.log(venue);
       setOpenConfirmationModal(true);
       handleCloseVenue();
+      window.location.reload();
     } catch (error) {
       setOpenErrorModal(true);
     }
@@ -146,52 +147,52 @@ export default function CreateNewVenue({ handleCloseVenue }) {
   return (
     <Box sx={{ padding: "4rem" }}>
       <form onSubmit={onFormSubmit}>
-        <NewVenueInput
+        <VenueInput
           isRequired={true}
           input={"name"}
           handleInputChange={handleNameChange}
           inputError={nameError}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={true}
           input={"description"}
           handleInputChange={handleDescriptionChange}
           inputError={descriptionError}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={true}
           input={"mediaUrl"}
           handleInputChange={(e) => setMediaUrl(e.target.value)}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={true}
           input={"mediaAlt"}
           handleInputChange={(e) => setMediaAlt(e.target.value)}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={true}
           input={"price"}
           handleInputChange={handlePriceChange}
           inputError={priceError}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={true}
           input={"maxGuests"}
           handleInputChange={handleMaxGuestsChange}
           inputError={maxGuestsError}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={true}
           input={"rating"}
           handleInputChange={handleRatingChange}
           inputError={ratingError}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={false}
           input={"city"}
           handleInputChange={(e) => setCity(e.target.value)}
         />
-        <NewVenueInput
+        <VenueInput
           isRequired={false}
           input={"country"}
           handleInputChange={(e) => setCountry(e.target.value)}
@@ -236,7 +237,7 @@ export default function CreateNewVenue({ handleCloseVenue }) {
           />
         </Box>
         <Button type="submit" variant="contained" sx={{ marginLeft: "5rem" }}>
-          Create a new venue
+          Create
         </Button>
       </form>
       <FeedbackModal

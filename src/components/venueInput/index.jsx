@@ -6,6 +6,7 @@ export default function NewVenueInput({
   handleInputChange,
   inputError,
   isRequired,
+  value
 }) {
   return (
     <Box
@@ -25,6 +26,7 @@ export default function NewVenueInput({
         id={input}
         label={`Venue ${input}`}
         name={input}
+        value={value}
         onChange={handleInputChange}
         aria-label={`Name of the ${input}`}
         error={!!inputError}

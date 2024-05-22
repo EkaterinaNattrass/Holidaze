@@ -1,5 +1,5 @@
 import { useState } from "react";
-import putData from "../../utils/putData";
+import { putData } from "../../utils/putData";
 import { API_BASE_URL } from "../../utils/constants";
 import { loadFromLocalStorage } from "../../utils/localStorage";
 import {

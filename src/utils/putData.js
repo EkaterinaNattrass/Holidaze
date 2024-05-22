@@ -1,6 +1,6 @@
 import { loadFromLocalStorage } from "../utils/localStorage";
 
-const putData = async (url, body) => {
+export const putData = async (url, body) => {
   try {
     const response = await fetch(url, {
       method: "PUT",
@@ -26,4 +26,3 @@ const putData = async (url, body) => {
   }
 };
 
-export default putData;
