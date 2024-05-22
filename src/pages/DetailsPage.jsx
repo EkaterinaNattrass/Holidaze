@@ -5,10 +5,9 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
 import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import BookingCalendar from "../components/bookingCalendar";
+import 'react-calendar/dist/Calendar.css';
 
 export default function DetailsPage() {
   const [venue, setVenue] = useState({});
@@ -176,7 +175,7 @@ export default function DetailsPage() {
                     borderTop: "grey solid 1px",
                   }}
                 >
-                  {venue.meta && venue.meta.wifi !== null ? (
+                  {venue.meta && venue.meta.wifi === true ? (
                     <Box
                       sx={{
                         backgroundImage: "url('/images/icons/wifi.jpg')",
@@ -195,7 +194,7 @@ export default function DetailsPage() {
                       }}
                     ></Box>
                   )}
-                  {venue.meta && venue.meta.parking !== null ? (
+                  {venue.meta && venue.meta.parking === true ? (
                     <Box
                       sx={{
                         backgroundImage: "url('/images/icons/parking.jpg')",
@@ -214,7 +213,7 @@ export default function DetailsPage() {
                       }}
                     ></Box>
                   )}
-                  {venue.meta && venue.meta.breakfast !== null ? (
+                  {venue.meta && venue.meta.breakfast === true ? (
                     <Box
                       sx={{
                         backgroundImage: "url('/images/icons/breakfast.jpg')",
@@ -233,7 +232,7 @@ export default function DetailsPage() {
                       }}
                     ></Box>
                   )}
-                  {venue.meta && venue.meta.pets !== null ? (
+                  {venue.meta && venue.meta.pets === true ? (
                     <Box
                       sx={{
                         backgroundImage: "url('/images/icons/pets.jpg')",
@@ -272,27 +271,13 @@ export default function DetailsPage() {
               display: "flex",
               flexDirection: "column",
               backgroundColor: "white",
-              width: { xs: "20rem", lg: "25rem" },
-              height: { xs: "20rem", md: "20rem" },
+              width: "25rem",
+              height: "30rem",
               paddingX: "1rem",
               margin: "2rem 0.5rem",
             }}
           >
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Box sx={{ margin: "2.5rem" }}>
-                <DatePicker
-                  label="Start date"
-                  defaultValue={dayjs("2024-05-17")}
-                />
-                <DatePicker
-                  sx={{ marginTop: "2rem" }}
-                  label="End date"
-                  value={value}
-                  onChange={(newValue) => setValue(newValue)}
-                />
-              </Box>
-            </LocalizationProvider>
-            <Button>Book the venue</Button>
+            < BookingCalendar venue={venue} id={venue.id} />
           </Paper>
         </Box>
       </Paper>

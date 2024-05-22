@@ -8,6 +8,7 @@ import { getData } from "../utils/getData";
 import EditAvatar from "../components/editAvatar";
 import NewVenueModal from "../components/newVenueModal";
 import RenderVenues from "../components/renderVenues";
+import RenderBookings from "../components/renderBookings";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState({});
@@ -132,7 +133,6 @@ export default function ProfilePage() {
             width: '100%',
             flexDirection: { xs: "column", md: "row" },
             justifyContent: { md: "space-around" },
-            border: 'pink solid 1px'
           }}
         >
           {profile.venueManager && (
@@ -172,8 +172,7 @@ export default function ProfilePage() {
                 <Box>
                   <Typography>You don't have any venues</Typography>
                 </Box>  )}
-                    </Box>
-            
+                    </Box>  
             </Box>
           )}
           {!profile.venueManager && (
@@ -181,6 +180,7 @@ export default function ProfilePage() {
               sx={{
                 boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
                 width: { xs: "100%", md: "80%" },
+                marginTop: '2rem'
               }}
             >
               <Typography
@@ -193,6 +193,7 @@ export default function ProfilePage() {
                 <Home sx={{ color: "primary.main", marginRight: "1rem" }} />
                 Your bookings
               </Typography>
+            <RenderBookings />
             </Paper>
           )}
         </Box>
