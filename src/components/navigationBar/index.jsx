@@ -9,7 +9,7 @@ export default function NavigationBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar color="inherit">
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <NavLink to={"/"}>
+          <NavLink to={"venues"}>
             <Box
               component="img"
               src="../images/icons/holidaze.png"

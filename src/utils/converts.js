@@ -23,3 +23,11 @@ export const convertToIsoDateInString = (date) => {
     const [year, month, day] = date.slice(0, 10).split("-");
     return `${day}.${month}.${year}`;
   };
+
+  export const convertISOToDate = (isoDate) => {
+    let date = new Date(isoDate);
+    let day = ('0' + date.getDate()).slice(-2);
+    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+    let year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+}

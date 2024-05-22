@@ -31,10 +31,9 @@ export default function BookingCalendar({ venue, id }) {
   const profile = loadFromLocalStorage("profile");
 
   useEffect(() => {
-    const bookings = () => {
-      let extractedDates = [];
-
-      venue.bookings &&
+    if (venue && venue.bookings) {
+      const bookings = () => {
+        let extractedDates = [];
         venue.bookings.forEach((booking) => {
           const startDate = new Date(convertIsoDateToNoon(booking.dateFrom));
           const endDate = new Date(convertIsoDateToNoon(booking.dateTo));
@@ -49,10 +48,11 @@ export default function BookingCalendar({ venue, id }) {
           }
         });
 
-      setBookedDates(extractedDates);
-    };
-    bookings();
-  }, [venue.bookings]);
+        setBookedDates(extractedDates);
+      };
+      bookings();
+    }
+  }, [venue]);
 
   const setCalendarDate = (date) => {
     if (checkInDate === null) {
@@ -85,6 +85,16 @@ export default function BookingCalendar({ venue, id }) {
     return date < newDate || bookedDates.includes(isoDateString) ? true : false;
   };
 
+  const calculateDateRange = (startDate, endDate) => {
+    let dates = [];
+    let currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+      dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return dates;
+  };
+
   const bookVenue = async () => {
     try {
       const apiBody = {
@@ -99,6 +109,8 @@ export default function BookingCalendar({ venue, id }) {
       );
       console.log(booking);
       setOpenConfirmationModal(true);
+      const newBookedDates = calculateDateRange(checkInDate, checkOutDate).map(date => convertToIsoDateInString(date));
+      setBookedDates(prevDates => [...prevDates, ...newBookedDates]);
       
     } catch (error) {
       console.log(`An error occurred: ${error.message}`);
@@ -135,7 +147,7 @@ export default function BookingCalendar({ venue, id }) {
         />
         <Paper elevation={1} sx={{ padding: "0.5rem", width: "6rem" }}>
           <Typography>
-            <b>Check-In:</b>{" "}
+            <b>Check-In:</b>
             {checkInDate
               ? convertFromDateToIsoOutput(checkInDate)
               : "Not selected"}
@@ -160,7 +172,7 @@ export default function BookingCalendar({ venue, id }) {
                 : checkInDate
               : null
           }
-          tileDisabled={disableDate}
+          tileDisabled={checkInDate}
         />
       </Box>
       <Box sx={{ marginBottom: "2rem" }}>

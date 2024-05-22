@@ -88,7 +88,7 @@ export default function HomePage() {
                     venue.description.toLowerCase().includes(search);
             })
             .map((venue) => (
-              <Grid xs={12} sm={6} md={4} lg={3}>
+              <Grid xs={12} sm={6} md={4} lg={3} key={venue.id}>
                 <Card
                   key={venue.id}
                   sx={{

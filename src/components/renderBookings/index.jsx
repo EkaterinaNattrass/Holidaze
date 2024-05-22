@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import FeedbackModal from "../feedbackModal";
 import { Link } from "react-router-dom";
+import { convertISOToDate } from "../../utils/converts";
 
 export default function RenderBookings() {
   const [bookings, setBookings] = useState([]);
@@ -57,6 +58,7 @@ export default function RenderBookings() {
       {bookings.map((booking) => (
         <Box key={booking.id}>
           <Card
+            key={booking.id}
             sx={{
               backgroundColor: "#FBFAF8",
               width: "25rem",
@@ -80,7 +82,7 @@ export default function RenderBookings() {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  Your booking was created: {booking.created}
+                  Your booking was created: {convertISOToDate(booking.created)}
                 </Typography>
                 <Typography
                   sx={{
@@ -90,10 +92,10 @@ export default function RenderBookings() {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  The booking is from
-                  {booking.dateFrom} to
-                  {booking.dateTo}
+                  You have a booked venue:
                 </Typography>
+                <Typography>from {convertISOToDate(booking.dateFrom)}</Typography>
+                <Typography>to {convertISOToDate(booking.dateTo)}</Typography>
               </Box>
             </CardContent>
             <CardActions>

@@ -5,22 +5,19 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
 import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import dayjs from "dayjs";
 import BookingCalendar from "../components/bookingCalendar";
+import { API_BASE_URL } from "../utils/constants";
 import 'react-calendar/dist/Calendar.css';
 
 export default function DetailsPage() {
   const [venue, setVenue] = useState({});
   const [error, setError] = useState(null);
   const { id } = useParams();
-  const API_URL = "https://v2.api.noroff.dev/holidaze/venues/" + id;
-
-  const [value, setValue] = React.useState(dayjs("2024-04-17"));
 
   useEffect(() => {
     async function getVenue() {
       try {
-        const response = await fetch(API_URL);
+        const response = await fetch(`${API_BASE_URL}holidaze/venues/${id}`);
         const result = await response.json();
         const APIdata = result.data;
         setVenue(APIdata);
@@ -29,7 +26,7 @@ export default function DetailsPage() {
       }
     }
     getVenue();
-  }, [API_URL]);
+  }, [id]);
 
   return (
     <Box
