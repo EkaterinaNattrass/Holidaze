@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../utils/constants";
 import { deleteData } from "../../utils/deleteData";
 import {
@@ -13,18 +13,34 @@ import {
 import FeedbackModal from "../feedbackModal";
 import { Link } from "react-router-dom";
 import { convertISOToDate } from "../../utils/converts";
+import { getData } from "../../utils/getData";
+import { loadFromLocalStorage } from "../../utils/localStorage";
 
 export default function RenderBookings({ profile }) {
   const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] =
     useState(false);
-  const [bookings, setBookings] = useState(false);
+  const [bookings, setBookings] = useState([]);
+  const storedProfile = loadFromLocalStorage("profile");
+
+  useEffect(() => {
+    async function getBookings() {
+      try {
+        const response = await getData(
+          `${API_BASE_URL}holidaze/profiles/${storedProfile.name}?_bookings=true`
+        );
+        const profileBookings = response.data.bookings;
+        setBookings(profileBookings);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getBookings();
+  }, [storedProfile.name]);
+
   const handleDeleteBooking = async (id) => {
     try {
       await deleteData(`${API_BASE_URL}holidaze/bookings/${id}`);
-      setBookings((bookings) =>
-        bookings.filter((booking) => booking.id !== id)
-      );
-      setOpenDeleteConfirmationModal(true);
+      setBookings((prevBookings) => prevBookings.filter((booking) => booking.id !== id));
     } catch (err) {
       console.log(err);
     }
@@ -33,15 +49,11 @@ export default function RenderBookings({ profile }) {
   const handleCloseDeleteConfirmationModal = () => {
     setOpenDeleteConfirmationModal(false);
   };
-  const profileBookings =
-    profile &&
-    profile.bookings &&
-    profile.bookings.sort((a, b) => new Date(b.created) - new Date(a.created));
+
   return (
    <Box sx={{width: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
-      {profileBookings && profileBookings.length > 0 ? (
-        profileBookings.map((data, index) => (
-         
+      {bookings && bookings.length > 0 ? (
+        bookings.map((data, index) => (
             <Card
               key={index}
               sx={{

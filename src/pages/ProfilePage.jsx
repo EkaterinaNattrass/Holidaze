@@ -12,7 +12,6 @@ import RenderBookings from "../components/renderBookings";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState({});
-  const [bookingsCount, setBookingsCount] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [avatar, setAvatar] = useState({ url: "", alt: "" });
 
@@ -44,7 +43,6 @@ export default function ProfilePage() {
         const profileData = await getData(
           `${API_BASE_URL}holidaze/profiles/${storedProfile.name}?_bookings=true`
         );
-        setBookingsCount(profileData.data._count.bookings);
         setProfile(profileData.data);
       } catch (error) {
         console.log(error);
