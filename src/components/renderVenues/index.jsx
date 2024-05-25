@@ -35,9 +35,10 @@ export default function RenderVenues() {
     async function getVenues() {
       try {
         const response = await getData(
-          `${API_BASE_URL}holidaze/profiles/${storedProfile.name}/venues`
+          `${API_BASE_URL}holidaze/profiles/${storedProfile.name}/venues?_bookings=true&_venues=true`
         );
         setVenues(response.data);
+        console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -96,7 +97,7 @@ export default function RenderVenues() {
     >
       {venues && venues.length > 0 ? (
         venues.map((venue) => (
-          <>
+          <Box key={venue.id}>
             <Card
               key={venue.id}
               sx={{
@@ -124,6 +125,23 @@ export default function RenderVenues() {
                   >
                     {venue.name}
                   </Typography>
+                  {venue.bookings && venue.bookings.length > 0 ? (
+                    venue.bookings.map((booking) => (
+                      <Box key={booking.id} sx={{marginTop: '2rem'}}>
+                        <Typography>
+                          Booking ID: {booking.id}
+                        </Typography>
+                        <Typography>
+                          From: {new Date(booking.dateFrom).toLocaleDateString()}
+                        </Typography>
+                        <Typography>
+                          To: {new Date(booking.dateTo).toLocaleDateString()}
+                        </Typography>
+                      </Box>
+                    ))
+                  ) : (
+                    <Typography>No bookings available</Typography>
+                  )}
                 </Box>
               </CardContent>
               <CardActions
@@ -168,7 +186,7 @@ export default function RenderVenues() {
                 updateVenueList={updateVenueList}
               />
             </Popover>
-          </>
+          </Box>
         ))
       ) : (
         <Box>

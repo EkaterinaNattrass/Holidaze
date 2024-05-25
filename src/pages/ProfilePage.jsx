@@ -1,6 +1,6 @@
 import { Button, Box, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { Person, AlternateEmail, AddAPhoto } from "@mui/icons-material";
 import { loadFromLocalStorage } from "../utils/localStorage";
 import { API_BASE_URL } from "../utils/constants";
@@ -129,10 +129,25 @@ export default function ProfilePage() {
                 <AlternateEmail sx={{ marginRight: "1rem" }} />
                 {profile.email}
               </Typography>
-              <Box sx={{marginTop: '4rem'}}>
-                  {profile.venueManager && <NewVenueModal />}
+              <Box sx={{ marginTop: "4rem" }}>
+                {profile.venueManager ? (
+                  <NewVenueModal />
+                ) : (
+                  <NavLink to="/venues">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      sx={{
+                        marginTop: { md: "1rem" },
+                        marginY: { xs: "3rem" },
+                      }}
+                    >
+                      Browse venues
+                    </Button>
+                  </NavLink>
+                )}
               </Box>
-            
             </Box>
           </Box>
         </Box>
