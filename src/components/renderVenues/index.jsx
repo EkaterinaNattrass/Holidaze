@@ -17,6 +17,7 @@ import {
 import FeedbackModal from "../feedbackModal";
 import { Link } from "react-router-dom";
 import UpdateVenueForm from "../updateVenueForm";
+import { convertISOToDate } from "../../utils/converts";
 
 export default function RenderVenues() {
   const [venues, setVenues] = useState([]);
@@ -38,7 +39,6 @@ export default function RenderVenues() {
           `${API_BASE_URL}holidaze/profiles/${storedProfile.name}/venues?_bookings=true&_venues=true`
         );
         setVenues(response.data);
-        console.log(response.data)
       } catch (err) {
         console.log(err);
       }
@@ -127,15 +127,16 @@ export default function RenderVenues() {
                   </Typography>
                   {venue.bookings && venue.bookings.length > 0 ? (
                     venue.bookings.map((booking) => (
-                      <Box key={booking.id} sx={{marginTop: '2rem'}}>
-                        <Typography>
-                          Booking ID: {booking.id}
+                      <Box key={booking.id} sx={{ marginTop: "2rem" }}>
+                        <Typography>Booking ID: </Typography>
+                        <Typography>{booking.id}</Typography>
+                        <Typography>From:</Typography>
+                        <Typography sx={{ fontWeight: 600 }}>
+                          {convertISOToDate(booking.dateFrom)}
                         </Typography>
-                        <Typography>
-                          From: {new Date(booking.dateFrom).toLocaleDateString()}
-                        </Typography>
-                        <Typography>
-                          To: {new Date(booking.dateTo).toLocaleDateString()}
+                        <Typography>To:</Typography>
+                        <Typography sx={{ fontWeight: 600 }}>
+                          {convertISOToDate(booking.dateTo)}
                         </Typography>
                       </Box>
                     ))
