@@ -106,8 +106,8 @@ export default function DetailsPage() {
             flexDirection: { xs: "column", md: "row" },
             justifyContent: "space-between",
             alignItems: { xs: "center" },
-            padding: "0.5rem",
-            maxWidth: "100%",
+            padding: { md: "0.5rem" },
+            width: "100%",
           }}
         >
           <Box
@@ -119,6 +119,7 @@ export default function DetailsPage() {
             <Box
               sx={{
                 display: "flex",
+                flexDirection: { xs: "column" },
                 justifyContent: "space-between",
                 margin: "1rem",
                 maxWidth: "100%",
@@ -130,7 +131,7 @@ export default function DetailsPage() {
                   sx={{
                     textTransform: "upperCase",
                     fontWeight: "400",
-                    fontSize: "1.2rem",
+                    fontSize: { xs: "0.8rem", md: "1.2rem" },
                     wordBreak: "break-word",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
@@ -273,25 +274,24 @@ export default function DetailsPage() {
                   )}
                 </Box>
               </Box>
-                <Rating
-                  name="read-only"
-                 value={venue.rating !== undefined ? venue.rating : 0}
-                  readOnly
-                  sx={{ color: "primary.main" }}
-                />
+              <Rating
+                size="small"
+                name="read-only"
+                value={venue.rating !== undefined ? venue.rating : 0}
+                readOnly
+                sx={{ color: "primary.main" }}
+              />
             </Box>
           </Box>
           <Paper
             square={false}
             elevation={3}
             sx={{
-              display: "flex",
-              flexDirection: "column",
               backgroundColor: "white",
-              width: "25rem",
-              height: "30rem",
-              paddingX: "1rem",
-              margin: "2rem 0.5rem",
+              width: { xs: "100%", md: "25rem" },
+              height: "32rem",
+              paddingX: { md: "1rem" },
+              margin: { md: "2rem 0.5rem" },
             }}
           >
             <BookingCalendar venue={venue} id={venue.id} />

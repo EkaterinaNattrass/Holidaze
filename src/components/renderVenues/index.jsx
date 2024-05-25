@@ -102,7 +102,7 @@ export default function RenderVenues() {
               key={venue.id}
               sx={{
                 backgroundColor: "#FBFAF8",
-                width: "25rem",
+                width: { xs: "20rem", sm: "25rem" },
                 margin: "2rem",
               }}
             >

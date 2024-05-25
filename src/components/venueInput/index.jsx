@@ -14,7 +14,7 @@ export default function NewVenueInput({
       sx={{
         "& > :not(style)": {
           m: 1,
-          width: "30ch",
+          width: {sm: "30ch"},
         },
         ml: "1rem",
       }}

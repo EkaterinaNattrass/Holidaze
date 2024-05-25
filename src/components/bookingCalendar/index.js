@@ -123,48 +123,24 @@ export default function BookingCalendar({ venue, id }) {
   return (
     <Box
       sx={{
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         paddingTop: "1rem",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "1rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <TextField
-          type="number"
-          label="Guests"
-          variant="outlined"
-          inputProps={{ min: 1, max: venue.maxGuests }}
-          value={numGuests}
-          onChange={(e) => setNumGuests(e.target.value)}
-          sx={{ width: "4rem", marginTop: "0.5rem" }}
-        />
-       {/*  <Paper elevation={1} sx={{ padding: "0.5rem", width: "6rem" }}>
-          <Typography>
-            <b>Check-In: </b>
-            {checkInDate
-              ? convertFromDateToIsoOutput(checkInDate)
-              : "Not selected"}
-          </Typography>
-        </Paper>
-        <Paper elevation={1} sx={{ padding: "0.5rem", width: "6rem" }}>
-          <Typography>
-            <b>Check-Out: </b>
-            {checkOutDate
-              ? convertFromDateToIsoOutput(checkOutDate)
-              : "Not selected"}
-          </Typography>
-        </Paper> */}
-      </Box>
-      <Box sx={{ marginBottom: "2rem" }}>
+      <TextField
+        type="number"
+        label="Guests"
+        variant="outlined"
+        inputProps={{ min: 1, max: venue.maxGuests }}
+        value={numGuests}
+        onChange={(e) => setNumGuests(e.target.value)}
+        sx={{ width: "4rem", marginTop: "0.5rem" }}
+      />
+
+      <Box sx={{ marginY: "2rem" }}>
         <Calendar
           onChange={setCalendarDate}
           value={

@@ -71,8 +71,8 @@ export default function ProfilePage() {
         <Box sx={{ width: { xs: "100%", md: "30%" } }}>
           <Box
             sx={{
-              height: { xs: "200px", md: "300px" },
-              width: { xs: "200px", md: "300px" },
+              height: { xs: "150px", md: "300px" },
+              width: { xs: "150px", md: "300px" },
               borderRadius: "50%",
               border: "2px solid white",
               overflow: "hidden",
@@ -81,7 +81,7 @@ export default function ProfilePage() {
               marginLeft: { xs: "0", md: "3rem" },
               transform: {
                 xs: "translate(-50%, -50%)",
-                md: "translate(23%, -50%)",
+                md: "translate(10%, -50%)",
               },
               zIndex: 1,
             }}
@@ -118,7 +118,7 @@ export default function ProfilePage() {
           <Box sx={{ display: "flex", flexDirection: { xs: "column" } }}>
             <Box
               sx={{
-                marginLeft: { xs: "35%", md: "8rem" },
+                marginLeft: { xs: "15%", md: "8rem" },
                 marginTop: "10rem",
               }}
             >
@@ -151,7 +151,7 @@ export default function ProfilePage() {
             </Box>
           </Box>
         </Box>
-        <Box sx={{ width: { xs: "100%", md: "70%" } }}>
+        <Box sx={{ width: { xs: "100%", md: "70%"} }}>
           <Box
             sx={{
               display: "flex",
