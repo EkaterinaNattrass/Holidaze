@@ -10,13 +10,13 @@ import {
   TextField,
   InputAdornment,
   IconButton,
+  Rating,
 } from "@mui/material";
 import {
   Search,
   Paid,
   HotelRounded,
   FmdGoodRounded,
-  StarRounded,
 } from "@mui/icons-material";
 import { API_BASE_URL } from "../utils/constants";
 import { getData } from "../utils/getData";
@@ -97,13 +97,15 @@ export default function HomePage() {
                   }}
                 >
                   <Link to={`/venues/${venue.id}`}>
-              <CardMedia
-                sx={{ height: 300 }}
-                image={venue.media?.[0]?.url || "/images/photos/house-for-rent.jpg"
-                }
-                alt={venue.media?.[0]?.alt}
-              />
-            </Link>
+                    <CardMedia
+                      sx={{ height: 300 }}
+                      image={
+                        venue.media?.[0]?.url ||
+                        "/images/photos/house-for-rent.jpg"
+                      }
+                      alt={venue.media?.[0]?.alt}
+                    />
+                  </Link>
 
                   <CardContent>
                     <Box
@@ -123,12 +125,12 @@ export default function HomePage() {
                         </Typography>
                       </Box>
                       <Box sx={{ display: "flex" }}>
-                        <StarRounded
-                          sx={{ color: "primary.main", marginRight: "0.3rem" }}
+                        <Rating
+                          name="read-only"
+                          value={venue.rating}
+                          readOnly
+                          sx={{ color: "primary.main" }}
                         />
-                        <Typography sx={{ fontWeight: "100" }} key={venue.id}>
-                          {venue.rating}
-                        </Typography>
                       </Box>
                     </Box>
                     <Box sx={{ display: "flex" }}>
@@ -136,9 +138,9 @@ export default function HomePage() {
                         sx={{ color: "primary.main", marginRight: "0.5rem" }}
                       />
                       <Typography sx={{ fontWeight: "100" }} key={venue.id}>
-                        {venue.location && venue.location.city !== null
+                       {venue.location.city !== null
                           ? venue.location.city
-                          : "Unknown"}
+                          : "City is unknown"}, {venue.location.country !== null ? venue.location.country : " country is unknown"}
                       </Typography>
                     </Box>
 

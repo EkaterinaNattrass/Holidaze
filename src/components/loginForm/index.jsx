@@ -6,7 +6,11 @@ import FeedbackModal from "../feedbackModal";
 import { saveToLocalStorage } from "../../utils/localStorage";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginForm({ setIsLoggedIn, handleCloseModal, setAnchorEl }) {
+export default function LoginForm({
+  setIsLoggedIn,
+  handleCloseModal,
+  setAnchorEl,
+}) {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const navigate = useNavigate();
@@ -26,12 +30,12 @@ export default function LoginForm({ setIsLoggedIn, handleCloseModal, setAnchorEl
       const profile = await postData(`${API_BASE_URL}auth/login`, data);
       setEmailLogin("");
       setPasswordLogin("");
-      setIsLoggedIn(true); 
+      setIsLoggedIn(true);
       handleCloseModal();
       setAnchorEl(null);
       saveToLocalStorage("profile", profile.data);
       saveToLocalStorage("token", profile.data.accessToken);
-      navigate(`/profile/${profile.data.name}`); 
+      navigate(`/profile/${profile.data.name}`);
     } catch (error) {
       setOpenErrorModal(true);
     }
@@ -78,10 +82,11 @@ export default function LoginForm({ setIsLoggedIn, handleCloseModal, setAnchorEl
         </Box>
         <Button
           type="submit"
+          variant="contained"
           sx={{
             marginLeft: { xs: "35%", sm: "95%" },
             marginY: "0.5rem",
-            padding: "0.5rem",
+            padding: "0.5rem 1rem",
           }}
         >
           login

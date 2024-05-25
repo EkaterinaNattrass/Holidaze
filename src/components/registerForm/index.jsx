@@ -136,10 +136,11 @@ export default function RegisterForm({ venueManager }) {
         </Box>
         <Button
           type="submit"
+          variant="contained"
           sx={{
-            marginLeft: { xs: "35%", sm: "95%" },
+            marginLeft: { xs: "30%", sm: "87%" },
             marginY: "0.5rem",
-            padding: "0.5rem",
+            padding: "0.5rem 1rem",
           }}
         >
           register

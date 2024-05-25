@@ -34,19 +34,20 @@ export default function BookingCalendar({ venue, id }) {
     if (venue && venue.bookings) {
       const bookings = () => {
         let extractedDates = [];
-        venue.bookings.forEach((booking) => {
-          const startDate = new Date(convertIsoDateToNoon(booking.dateFrom));
-          const endDate = new Date(convertIsoDateToNoon(booking.dateTo));
-          const currentDate = new Date(startDate);
+        venue.bookings &&
+          venue.bookings.forEach((booking) => {
+            const startDate = new Date(convertIsoDateToNoon(booking.dateFrom));
+            const endDate = new Date(convertIsoDateToNoon(booking.dateTo));
+            //  const currentDate = new Date(startDate);
 
-          while (currentDate <= endDate) {
-            const isoDateString = convertToIsoDateInString(currentDate);
-            if (!extractedDates.includes(isoDateString)) {
-              extractedDates.push(isoDateString);
+            while (startDate <= endDate) {
+              const isoDateString = convertToIsoDateInString(startDate);
+              if (!extractedDates.includes(isoDateString)) {
+                extractedDates.push(isoDateString);
+              }
+              startDate.setDate(startDate.getDate() + 1);
             }
-            currentDate.setDate(currentDate.getDate() + 1);
-          }
-        });
+          });
 
         setBookedDates(extractedDates);
       };
@@ -82,7 +83,7 @@ export default function BookingCalendar({ venue, id }) {
     const isoDateString = convertToIsoDateInString(date);
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);
-    return date < newDate || bookedDates.includes(isoDateString) ? true : false;
+    return date < newDate || bookedDates.includes(isoDateString);
   };
 
   const calculateDateRange = (startDate, endDate) => {
@@ -109,9 +110,10 @@ export default function BookingCalendar({ venue, id }) {
       );
       console.log(booking);
       setOpenConfirmationModal(true);
-      const newBookedDates = calculateDateRange(checkInDate, checkOutDate).map(date => convertToIsoDateInString(date));
-      setBookedDates(prevDates => [...prevDates, ...newBookedDates]);
-      
+      const newBookedDates = calculateDateRange(checkInDate, checkOutDate).map(
+        (date) => convertToIsoDateInString(date)
+      );
+      setBookedDates((prevDates) => [...prevDates, ...newBookedDates]);
     } catch (error) {
       console.log(`An error occurred: ${error.message}`);
       setOpenErrorModal(true);
@@ -143,11 +145,11 @@ export default function BookingCalendar({ venue, id }) {
           inputProps={{ min: 1, max: venue.maxGuests }}
           value={numGuests}
           onChange={(e) => setNumGuests(e.target.value)}
-          sx={{ width: "4rem" }}
+          sx={{ width: "4rem", marginTop: "0.5rem" }}
         />
         <Paper elevation={1} sx={{ padding: "0.5rem", width: "6rem" }}>
           <Typography>
-            <b>Check-In:</b>
+            <b>Check-In: </b>
             {checkInDate
               ? convertFromDateToIsoOutput(checkInDate)
               : "Not selected"}
@@ -155,7 +157,7 @@ export default function BookingCalendar({ venue, id }) {
         </Paper>
         <Paper elevation={1} sx={{ padding: "0.5rem", width: "6rem" }}>
           <Typography>
-            <b>Check-Out:</b>{" "}
+            <b>Check-Out: </b>
             {checkOutDate
               ? convertFromDateToIsoOutput(checkOutDate)
               : "Not selected"}
@@ -172,7 +174,7 @@ export default function BookingCalendar({ venue, id }) {
                 : checkInDate
               : null
           }
-          tileDisabled={checkInDate}
+          tileDisabled={disableDate}
         />
       </Box>
       <Box sx={{ marginBottom: "2rem" }}>
@@ -181,7 +183,7 @@ export default function BookingCalendar({ venue, id }) {
             Book
           </Button>
         ) : (
-          <Typography color="primary">Sign in to book</Typography>
+          <Typography color="primary">Log in to book</Typography>
         )}
       </Box>
       <FeedbackModal
@@ -191,7 +193,7 @@ export default function BookingCalendar({ venue, id }) {
         secondaryText="You booked the venue."
         handleOnClick={handleCloseConfirmationModal}
       />
-    <FeedbackModal
+      <FeedbackModal
         isOpen={openErrorModal}
         handleClose={handleCloseErrorModal}
         primaryText="Error"

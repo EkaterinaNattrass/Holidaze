@@ -42,9 +42,8 @@ export default function ProfilePage() {
     async function getProfile() {
       try {
         const profileData = await getData(
-          `${API_BASE_URL}holidaze/profiles/${storedProfile.name}`
+          `${API_BASE_URL}holidaze/profiles/${storedProfile.name}?_bookings=true`
         );
-        console.log(profileData.data);
         setBookingsCount(profileData.data._count.bookings);
         setProfile(profileData.data);
       } catch (error) {
@@ -66,136 +65,145 @@ export default function ProfilePage() {
       ></Box>
       <Box
         sx={{
-          height: { xs: "200px", md: "300px" },
-          width: { xs: "200px", md: "300px" },
-          borderRadius: "50%",
-          border: "2px solid white",
-          overflow: "hidden",
-          position: "absolute",
-          left: { xs: "50%", md: "initial" },
-          marginLeft: { xs: "0", md: "3rem" },
-          transform: {
-            xs: "translate(-50%, -50%)",
-            md: "translate(23%, -50%)",
-          },
-          zIndex: 1,
+          width: "100%",
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
         }}
       >
-        <img
-          src={profile.avatar?.url}
-          alt={profile.avatar?.alt}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
-        <Button
-          onClick={handleOpen}
-          sx={{
-            position: "absolute",
-            bottom: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            marginTop: "2rem",
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "8px",
-          }}
-        >
-          <AddAPhoto fontSize="large" />
-        </Button>
-      </Box>
-      <EditAvatar
-        isShown={isDialogOpen}
-        handleClose={handleClose}
-        handleAvatarUpdate={handleAvatarUpdate}
-      />
+        <Box sx={{ width: { xs: "100%", md: "30%" } }}>
+          <Box
+            sx={{
+              height: { xs: "200px", md: "300px" },
+              width: { xs: "200px", md: "300px" },
+              borderRadius: "50%",
+              border: "2px solid white",
+              overflow: "hidden",
+              position: "absolute",
+              left: { xs: "50%", md: "initial" },
+              marginLeft: { xs: "0", md: "3rem" },
+              transform: {
+                xs: "translate(-50%, -50%)",
+                md: "translate(23%, -50%)",
+              },
+              zIndex: 1,
+            }}
+          >
+            <img
+              src={profile.avatar?.url}
+              alt={profile.avatar?.alt}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <Button
+              onClick={handleOpen}
+              sx={{
+                position: "absolute",
+                bottom: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                marginTop: "2rem",
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                borderRadius: "8px",
+              }}
+            >
+              <AddAPhoto fontSize="large" />
+            </Button>
+          </Box>
+          <EditAvatar
+            isShown={isDialogOpen}
+            handleClose={handleClose}
+            handleAvatarUpdate={handleAvatarUpdate}
+          />
 
-      <Box sx={{ display: "flex", flexDirection: { xs: "column" } }}>
-        <Box
-          sx={{
-            width: { xs: "90%", md: "60%" },
-            marginLeft: { xs: "35%", md: "8rem" },
-            marginTop: "10rem",
-          }}
-        >
-          <Typography sx={{ fontSize: "1.3rem", fontWeight: 600 }}>
-            <Person sx={{ marginRight: "1rem" }} /> {name}
-          </Typography>
-          <Typography sx={{ fontSize: "1.3rem", fontWeight: 200 }}>
-            <AlternateEmail sx={{ marginRight: "1rem" }} />
-            {profile.email}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            width: '100%',
-            flexDirection: { xs: "column", md: "row" },
-            justifyContent: { md: "space-around" },
-          }}
-        >
-          {profile.venueManager && (
+          <Box sx={{ display: "flex", flexDirection: { xs: "column" } }}>
             <Box
               sx={{
-                width: { xs: "100%", md: "80%" },
-                display: "flex",
-                paddingY: "2rem",
+                marginLeft: { xs: "35%", md: "8rem" },
+                marginTop: "10rem",
               }}
             >
+              <Typography sx={{ fontSize: "1.3rem", fontWeight: 600 }}>
+                <Person sx={{ marginRight: "1rem" }} /> {name}
+              </Typography>
+              <Typography sx={{ fontSize: "1.3rem" }}>
+                <AlternateEmail sx={{ marginRight: "1rem" }} />
+                {profile.email}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box sx={{ width: { xs: "100%", md: "70%" } }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              justifyContent: { md: "space-around" },
+            }}
+          >
+            {profile.venueManager && (
               <Box
                 sx={{
-                  width: "15rem",
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
+                  paddingY: "2rem",
                 }}
+              >
+                <Box
+                  sx={{
+                    width: "15rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      padding: "2rem",
+                      fontSize: "1.3rem",
+                      fontWeight: 200,
+                    }}
+                  >
+                    <Home
+                      sx={{
+                        color: "primary.main",
+                        marginRight: "1rem",
+                        textAlign: "center",
+                      }}
+                    />
+                    Your venues
+                  </Typography>
+                  <NewVenueModal />
+                </Box>
+                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+                  {profile._count.venues > 0 ? (
+                    <RenderVenues />
+                  ) : (
+                    <Box sx={{ padding: "2rem" }}>
+                      <Typography>You don't have any venues</Typography>
+                    </Box>
+                  )}
+                </Box>
+              </Box>
+            )}
+            {!profile.venueManager &&  (
+              <Box
               >
                 <Typography
-                  sx={{ padding: "1rem", fontSize: "1.3rem", fontWeight: 200 }}
+                  sx={{
+                    padding: "2rem",
+                    fontSize: "1.3rem",
+                    fontWeight: 200,
+                  }}
                 >
-                  <Home
-                    sx={{
-                      color: "primary.main",
-                      marginRight: "1rem",
-                      textAlign: "center",
-                    }}
-                  />
-                  Your venues
+                  <Home sx={{ color: "primary.main", marginRight: "1rem" }} />
+                  Your bookings
                 </Typography>
-                <NewVenueModal />
+                <RenderBookings profile={profile} />
               </Box>
-                    <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
-                        {profile._count.venues > 0 ? (
-                <RenderVenues />
-              ) : (
-                <Box>
-                  <Typography>You don't have any venues</Typography>
-                </Box>  )}
-                    </Box>  
-            </Box>
-          )}
-          {!profile.venueManager && (
-            <Paper
-              sx={{
-                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                width: { xs: "100%", md: "80%" },
-                marginTop: '2rem'
-              }}
-            >
-              <Typography
-                sx={{
-                  padding: "1rem",
-                  fontSize: "1.3rem",
-                  fontWeight: 200,
-                }}
-              >
-                <Home sx={{ color: "primary.main", marginRight: "1rem" }} />
-                Your bookings
-              </Typography>
-            <RenderBookings />
-            </Paper>
-          )}
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>

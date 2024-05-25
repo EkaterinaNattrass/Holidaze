@@ -26,7 +26,7 @@ export default function AuthModalCustomer({
           left: "50%",
           transform: "translate(-50%, -50%)",
           width: { xs: "18rem", sm: "30rem" },
-          height: "90%",
+          height: "75%",
           bgcolor: "background.paper",
           boxShadow: 24,
           p: 4,
@@ -41,14 +41,14 @@ export default function AuthModalCustomer({
         >
           <Box
             sx={{
-              backgroundColor: "#F2935C",
-              color: "white",
+              border: "1px solid #F2935C",
+              color: "#F2935C",
               textTransform: "uppercase",
               textAlign: "center",
-              height: "2.5rem",
-              width: "100%",
               paddingTop: "0.5rem",
+              height: "2.5rem",
               marginTop: "1rem",
+              width: "100%",
             }}
           >
             Login

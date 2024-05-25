@@ -152,12 +152,18 @@ export default function CreateNewVenue({ handleCloseVenue }) {
           input={"name"}
           handleInputChange={handleNameChange}
           inputError={nameError}
+          inputProps={{
+            maxLength: 25,
+          }}
         />
         <VenueInput
           isRequired={true}
           input={"description"}
           handleInputChange={handleDescriptionChange}
           inputError={descriptionError}
+          inputProps={{
+            maxLength: 150,
+          }}
         />
         <VenueInput
           isRequired={true}

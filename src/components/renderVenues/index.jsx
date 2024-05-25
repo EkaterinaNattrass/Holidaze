@@ -19,7 +19,8 @@ import UpdateVenueForm from "../updateVenueForm";
 
 export default function RenderVenues() {
   const [venues, setVenues] = useState([]);
-  const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] = useState(false);
+  const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] =
+    useState(false);
   const [popoverState, setPopoverState] = useState({
     open: false,
     anchorEl: null,
@@ -73,16 +74,19 @@ export default function RenderVenues() {
   };
 
   const updateVenueList = (id, updatedVenue) => {
-    setVenues((prevVenues) => 
-      prevVenues.map((venue) => (venue.id === id ? { ...venue, ...updatedVenue } : venue))
+    setVenues((prevVenues) =>
+      prevVenues.map((venue) =>
+        venue.id === id ? { ...venue, ...updatedVenue } : venue
+      )
     );
   };
 
   return (
     <>
-      {venues.map((venue) => (
-        <Box key={venue.id}>
+      {venues ? venues.map((venue) => (
+        <Box>
           <Card
+            key={venue.id}
             sx={{
               backgroundColor: "#FBFAF8",
               width: "25rem",
@@ -132,10 +136,16 @@ export default function RenderVenues() {
               horizontal: "left",
             }}
           >
-           < UpdateVenueForm venue={venue} handleClose={handleCloseUpdate} updateVenueList={updateVenueList} />
+            <UpdateVenueForm
+              venue={venue}
+              handleClose={handleCloseUpdate}
+              updateVenueList={updateVenueList}
+            />
           </Popover>
         </Box>
-      ))}
+      )) : (<Box>
+        <Typography>There are no venues yet.</Typography>
+      </Box>)}
 
       <FeedbackModal
         isOpen={openDeleteConfirmationModal}

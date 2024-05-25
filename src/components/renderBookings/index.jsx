@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { API_BASE_URL } from "../../utils/constants";
-import { getData } from "../../utils/getData";
 import { deleteData } from "../../utils/deleteData";
-import { loadFromLocalStorage } from "../../utils/localStorage";
 import {
   Typography,
   Card,
@@ -16,32 +14,15 @@ import FeedbackModal from "../feedbackModal";
 import { Link } from "react-router-dom";
 import { convertISOToDate } from "../../utils/converts";
 
-export default function RenderBookings() {
-  const [bookings, setBookings] = useState([]);
+export default function RenderBookings({ profile }) {
   const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] =
     useState(false);
-
-  const storedProfile = loadFromLocalStorage("profile");
-
-  useEffect(() => {
-    async function getBookings() {
-      try {
-        const response = await getData(
-          `${API_BASE_URL}holidaze/profiles/${storedProfile.name}/bookings`
-        );
-        setBookings(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    getBookings();
-  }, [storedProfile.name]);
-
+  const [bookings, setBookings] = useState(false);
   const handleDeleteBooking = async (id) => {
     try {
       await deleteData(`${API_BASE_URL}holidaze/bookings/${id}`);
-      setBookings((prevBookings) =>
-        prevBookings.filter((booking) => booking.id !== id)
+      setBookings((bookings) =>
+        bookings.filter((booking) => booking.id !== id)
       );
       setOpenDeleteConfirmationModal(true);
     } catch (err) {
@@ -52,63 +33,73 @@ export default function RenderBookings() {
   const handleCloseDeleteConfirmationModal = () => {
     setOpenDeleteConfirmationModal(false);
   };
-
+  const profileBookings =
+    profile &&
+    profile.bookings &&
+    profile.bookings.sort((a, b) => new Date(b.created) - new Date(a.created));
   return (
-    <>
-      {bookings.map((booking) => (
-        <Box key={booking.id}>
-          <Card
-            key={booking.id}
-            sx={{
-              backgroundColor: "#FBFAF8",
-              width: "25rem",
-              margin: "2rem",
-            }}
-          >
-            {/*   <Link to={`/venues/${venue.id}`}>
-              <CardMedia
-                sx={{ height: 300 }}
-                image={venue.media?.[0]?.url}
-                alt={venue.media?.[0]?.alt}
-              />
-            </Link> */}
-            <CardContent>
-              <Box>
-                <Typography
-                  sx={{
-                    textTransform: "upperCase",
-                    fontWeight: "400",
-                    fontSize: "1rem",
-                    marginBottom: "0.5rem",
-                  }}
+   <Box sx={{width: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+      {profileBookings && profileBookings.length > 0 ? (
+        profileBookings.map((data, index) => (
+         
+            <Card
+              key={index}
+              sx={{
+                backgroundColor: "#FBFAF8",
+                width: "25rem",
+                margin: "2rem",
+              }}
+            >
+              <Link to={`/venues/${data.venue.id}`}>
+                <CardMedia
+                  sx={{ height: 300 }}
+                  image={data.venue.media?.[0]?.url}
+                  alt={data.venue.media?.[0]?.alt}
+                />
+              </Link>
+              <CardContent>
+                <Box>
+                  <Typography
+                    sx={{
+                      textTransform: "upperCase",
+                      fontWeight: "400",
+                      fontSize: "1rem",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Your booking was created: {convertISOToDate(data.created)}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      textTransform: "upperCase",
+                      fontWeight: "400",
+                      fontSize: "1rem",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    You have a booked venue:
+                  </Typography>
+                  <Typography>
+                    from {convertISOToDate(data.dateFrom)}
+                  </Typography>
+                  <Typography>to {convertISOToDate(data.dateTo)}</Typography>
+                </Box>
+              </CardContent>
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={() => handleDeleteBooking(data.id)}
                 >
-                  Your booking was created: {convertISOToDate(booking.created)}
-                </Typography>
-                <Typography
-                  sx={{
-                    textTransform: "upperCase",
-                    fontWeight: "400",
-                    fontSize: "1rem",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  You have a booked venue:
-                </Typography>
-                <Typography>from {convertISOToDate(booking.dateFrom)}</Typography>
-                <Typography>to {convertISOToDate(booking.dateTo)}</Typography>
-              </Box>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                onClick={() => handleDeleteBooking(booking.id)}
-              >
-                Delete
-              </Button>
-            </CardActions>
-          </Card>
+                  Delete
+                </Button>
+              </CardActions>
+            </Card>
+        ))
+      ) : (
+        <Box>
+          <Typography>There are no bookings yet.</Typography>
         </Box>
-      ))}
+      )}
       <FeedbackModal
         isOpen={openDeleteConfirmationModal}
         handleClose={handleCloseDeleteConfirmationModal}
@@ -116,6 +107,6 @@ export default function RenderBookings() {
         secondaryText="Your booking is deleted."
         handleOnClick={handleCloseDeleteConfirmationModal}
       />
-    </>
+    </Box>
   );
 }

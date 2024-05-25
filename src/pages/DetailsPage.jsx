@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Typography, Button, Box, Paper } from "@mui/material";
-import PaidIcon from "@mui/icons-material/Paid";
-import HotelRoundedIcon from "@mui/icons-material/HotelRounded";
-import FmdGoodRoundedIcon from "@mui/icons-material/FmdGoodRounded";
-import StarRoundedIcon from "@mui/icons-material/StarRounded";
+import { Typography, Button, Box, Paper, Rating } from "@mui/material";
+import { Paid, HotelRounded, FmdGoodRounded } from "@mui/icons-material";
 import BookingCalendar from "../components/bookingCalendar";
 import { API_BASE_URL } from "../utils/constants";
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css";
 
 export default function DetailsPage() {
   const [venue, setVenue] = useState({});
@@ -17,10 +14,13 @@ export default function DetailsPage() {
   useEffect(() => {
     async function getVenue() {
       try {
-        const response = await fetch(`${API_BASE_URL}holidaze/venues/${id}`);
+        const response = await fetch(
+          `${API_BASE_URL}holidaze/venues/${id}?_bookings=true`
+        );
         const result = await response.json();
         const APIdata = result.data;
         setVenue(APIdata);
+        console.log(APIdata);
       } catch (err) {
         setError("Sorry, something went wrong");
       }
@@ -52,7 +52,7 @@ export default function DetailsPage() {
         key={id}
         sx={{
           backgroundColor: "#FBFAF8",
-          width: { xs: "100%", sm: "33rem", md: "50rem" },
+          width: { xs: "100%", sm: "33rem", md: "60rem" },
           mt: { sm: 5 },
         }}
       >
@@ -60,45 +60,42 @@ export default function DetailsPage() {
           <Box
             sx={{
               backgroundImage: `url(${
-                venue.media?.[0].url
-                  || "/images/photos/house-for-rent.jpg"
+                venue.media?.[0].url || "/images/photos/house-for-rent.jpg"
               })`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               height: { xs: "16rem", sm: "20rem", md: "30rem" },
               display: "flex",
-              width: { xs: '50%', sm: "22rem", md: "25rem", lg: "35rem" },
-              mr: {sm: "0.5rem"},
+              width: { xs: "50%", sm: "22rem", md: "30rem", lg: "35rem" },
+              mr: { sm: "0.5rem" },
             }}
           ></Box>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
-              width: { xs: "50%", sm: "11rem", md: "25rem", lg: "35rem" },
+              width: { xs: "50%", sm: "11rem", md: "30rem", lg: "35rem" },
             }}
           >
             <Box
               sx={{
                 backgroundImage: `url(${
-                  venue.media?.[1]?.url
-                    || "/images/photos/living-room.jpg"
+                  venue.media?.[1]?.url || "/images/photos/living-room.jpg"
                 })`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                height: { xs: "8rem", sm: '10rem',md: "15rem" },
-                mb: { sm: "0.5rem"},
+                height: { xs: "8rem", sm: "10rem", md: "15rem" },
+                mb: { sm: "0.5rem" },
               }}
             ></Box>
             <Box
               sx={{
                 backgroundImage: `url(${
-                  venue.media?.[2]?.url
-                    || "/images/photos/bedroom.jpg"
+                  venue.media?.[2]?.url || "/images/photos/bedroom.jpg"
                 })`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                height: { xs: "8rem", sm: '9.5rem', md: "14.5rem" },
+                height: { xs: "8rem", sm: "9.5rem", md: "14.5rem" },
               }}
             ></Box>
           </Box>
@@ -111,11 +108,13 @@ export default function DetailsPage() {
             justifyContent: "space-between",
             alignItems: { xs: "center" },
             padding: "0.5rem",
+            maxWidth: "100%",
           }}
         >
           <Box
             sx={{
-              width: { sm: "22rem", md: "25rem", lg: "30rem" },
+              width: { xs: "100%", md: "27rem", lg: "30rem" },
+              maxWidth: "100%",
             }}
           >
             <Box
@@ -123,6 +122,8 @@ export default function DetailsPage() {
                 display: "flex",
                 justifyContent: "space-between",
                 margin: "1rem",
+                maxWidth: "100%",
+                overflow: "hidden",
               }}
             >
               <Box>
@@ -131,25 +132,50 @@ export default function DetailsPage() {
                     textTransform: "upperCase",
                     fontWeight: "400",
                     fontSize: "1.2rem",
+                    wordBreak: "break-word",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {venue.name}
                 </Typography>
-                <Typography sx={{ fontWeight: "100", fontSize: "1rem" }}>
+                <Typography
+                  sx={{
+                    fontWeight: "100",
+                    fontSize: "1rem",
+                    wordBreak: "break-word",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {venue.description}
                 </Typography>
                 <Box sx={{ display: "flex", marginTop: "1.5rem" }}>
-                  <FmdGoodRoundedIcon
+                  <FmdGoodRounded
                     sx={{ color: "primary.main", marginRight: "0.5rem" }}
                   />
-                  <Typography sx={{ fontWeight: "100" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "100",
+                      wordBreak: "break-word",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
                     {venue.location && venue.location.city !== null
                       ? venue.location.city
-                      : "Unknown"}
+                      : "City unknown"}
+                    ,{" "}
+                    {venue.location && venue.location.country !== null
+                      ? venue.location.country
+                      : "Country unknown"}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex" }}>
-                  <HotelRoundedIcon
+                  <HotelRounded
                     sx={{ color: "primary.main", marginRight: "0.5rem" }}
                   />
                   <Typography sx={{ fontWeight: "100" }}>
@@ -157,9 +183,7 @@ export default function DetailsPage() {
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", marginY: "1.5rem" }}>
-                  <PaidIcon
-                    sx={{ color: "primary.main", marginRight: "0.5rem" }}
-                  />
+                  <Paid sx={{ color: "primary.main", marginRight: "0.5rem" }} />
                   <Typography sx={{ fontWeight: "400" }}>
                     {venue.price}
                   </Typography>
@@ -250,14 +274,12 @@ export default function DetailsPage() {
                   )}
                 </Box>
               </Box>
-              <Box sx={{ display: "flex" }}>
-                <StarRoundedIcon
-                  sx={{ color: "primary.main", marginRight: "0.3rem" }}
+                <Rating
+                  name="read-only"
+                  value={venue.rating}
+                  readOnly
+                  sx={{ color: "primary.main" }}
                 />
-                <Typography sx={{ fontWeight: "100" }}>
-                  {venue.rating}
-                </Typography>
-              </Box>
             </Box>
           </Box>
 
@@ -274,7 +296,7 @@ export default function DetailsPage() {
               margin: "2rem 0.5rem",
             }}
           >
-            < BookingCalendar venue={venue} id={venue.id} />
+            <BookingCalendar venue={venue} id={venue.id} />
           </Paper>
         </Box>
       </Paper>
