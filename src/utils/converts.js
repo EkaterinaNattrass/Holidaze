@@ -3,16 +3,13 @@ export const convertToIsoDateInString = (date) => {
   return date.toISOString().split("T")[0];
 };
 
-export const convertIsoDateToNoon = (isoDate) => {
-  if (!isoDate) return null;
-  const date = new Date(isoDate);
-  date.setHours(12, 0, 0, 0);
-  return date;
+export const convertIsoDateToNoon = (date) => {
+  if (!date) return null;
+  return date.replace(/\d\d:\d\d:\d\d\.\d\d\d/, "12:00:00.000");
 };
 
 export const convertFromDateToIsoOutput = (date) => {
   if (!date) return null;
-  date.setHours(1);
   return `${date.getUTCDate()}.${
     date.getUTCMonth() + 1
   }.${date.getUTCFullYear()}`;

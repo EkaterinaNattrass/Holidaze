@@ -147,7 +147,7 @@ export default function BookingCalendar({ venue, id }) {
           onChange={(e) => setNumGuests(e.target.value)}
           sx={{ width: "4rem", marginTop: "0.5rem" }}
         />
-        <Paper elevation={1} sx={{ padding: "0.5rem", width: "6rem" }}>
+       {/*  <Paper elevation={1} sx={{ padding: "0.5rem", width: "6rem" }}>
           <Typography>
             <b>Check-In: </b>
             {checkInDate
@@ -162,7 +162,7 @@ export default function BookingCalendar({ venue, id }) {
               ? convertFromDateToIsoOutput(checkOutDate)
               : "Not selected"}
           </Typography>
-        </Paper>
+        </Paper> */}
       </Box>
       <Box sx={{ marginBottom: "2rem" }}>
         <Calendar

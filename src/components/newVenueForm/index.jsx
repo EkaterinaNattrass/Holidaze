@@ -242,9 +242,12 @@ export default function CreateNewVenue({ handleCloseVenue }) {
             label="Pets"
           />
         </Box>
-        <Button type="submit" variant="contained" sx={{ marginLeft: "5rem" }}>
+        <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+          <Button type="submit" variant="contained" sx={{ marginLeft: "5rem" }}>
           Create
         </Button>
+        </Box>
+        
       </form>
       <FeedbackModal
         isOpen={openConfirmationModal}

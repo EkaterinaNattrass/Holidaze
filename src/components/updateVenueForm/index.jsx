@@ -79,7 +79,6 @@ export default function UpdateVenueForm({
     };
     try {
       await putData(`${API_BASE_URL}holidaze/venues/${venue.id}`, updatedVenue);
-      console.log(updatedVenue);
       updateVenueList(venue.id, updatedVenue);
       setOpenConfirmationModal(true);
       handleClose();
@@ -184,12 +183,15 @@ export default function UpdateVenueForm({
             label="Pets"
           />
         </Box>
-        <Button variant="contained" onClick={handleClose}>
+        <Box sx={{marginTop: '1rem', display: 'flex', justifyContent:'flex-end'}}>
+          <Button variant="outlined" onClick={handleClose} >
           Cancel
         </Button>
-        <Button type="submit" variant="contained" sx={{ marginLeft: "5rem" }}>
+        <Button type="submit" variant="contained" sx={{ marginLeft: "2rem" }}>
           Update
         </Button>
+        </Box>
+        
       </form>
       <FeedbackModal
         isOpen={openConfirmationModal}

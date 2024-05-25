@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Popover, Button } from "@mui/material";
 import NewVenue from "../newVenueForm";
 
-
 export default function NewVenueModal() {
   const [anchorElVenue, setAnchorElVenue] = useState(null);
   const openVenue = Boolean(anchorElVenue);
@@ -16,8 +15,11 @@ export default function NewVenueModal() {
   };
 
   return (
-    <><Button variant="contained" onClick={handleClickVenue}>New venue</Button>
-    <Popover
+    <>
+      <Button variant="contained" onClick={handleClickVenue} sx={{width: '10rem'}}>
+        New venue
+      </Button>
+      <Popover
         id={idVenue}
         open={openVenue}
         anchorEl={anchorElVenue}
@@ -27,9 +29,8 @@ export default function NewVenueModal() {
           horizontal: "left",
         }}
       >
-     <NewVenue handleCloseVenue={handleCloseVenue} />
+        <NewVenue handleCloseVenue={handleCloseVenue} />
       </Popover>
     </>
-    
-  )
+  );
 }

@@ -127,7 +127,7 @@ export default function HomePage() {
                       <Box sx={{ display: "flex" }}>
                         <Rating
                           name="read-only"
-                          value={venue.rating}
+                          value={venue.rating !== undefined ? venue.rating : 0}
                           readOnly
                           sx={{ color: "primary.main" }}
                         />

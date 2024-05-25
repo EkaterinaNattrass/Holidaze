@@ -5,13 +5,11 @@ import RegisterForm from "../registerForm";
 
 export default function AuthModalCustomer({
   openModalCustomer,
-  handleCloseModalCustomer,
+  handleCloseModal,
   setIsLoggedIn,
   setAnchorEl,
 }) {
-  const handleCloseModal = () => {
-    handleCloseModalCustomer();
-  };
+
   return (
     <Modal
       open={openModalCustomer}
@@ -55,7 +53,7 @@ export default function AuthModalCustomer({
           </Box>
           <LoginForm
             setIsLoggedIn={setIsLoggedIn}
-            handleCloseModal={handleCloseModalCustomer}
+            handleCloseModal={handleCloseModal}
             setAnchorEl={setAnchorEl}
           />
           <Box
@@ -72,7 +70,7 @@ export default function AuthModalCustomer({
           >
             Register
           </Box>
-          <RegisterForm venueManager={true} />
+          <RegisterForm venueManager={false} />
         </Box>
       </Box>
     </Modal>

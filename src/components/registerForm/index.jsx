@@ -12,7 +12,7 @@ export default function RegisterForm({ venueManager }) {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [openConfirmationModal, setOpenConfirmationModal] = useState("");
+  const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -53,7 +53,7 @@ export default function RegisterForm({ venueManager }) {
         name: name,
         email: emailRegister,
         password: passwordRegister,
-        venueManager: !venueManager,
+        venueManager: venueManager,
       };
       const profile = await postData(`${API_BASE_URL}auth/register`, data);
       console.log(profile);

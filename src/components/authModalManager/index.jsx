@@ -72,7 +72,7 @@ export default function AuthModalManager({
           >
             Register
           </Box>
-          <RegisterForm venueManager={false} />
+          <RegisterForm venueManager={true} />
         </Box>
       </Box>
     </Modal>

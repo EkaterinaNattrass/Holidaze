@@ -1,7 +1,7 @@
-import { Button, Box, Typography, Paper } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Person, AlternateEmail, Home, AddAPhoto } from "@mui/icons-material";
+import { Person, AlternateEmail, AddAPhoto } from "@mui/icons-material";
 import { loadFromLocalStorage } from "../utils/localStorage";
 import { API_BASE_URL } from "../utils/constants";
 import { getData } from "../utils/getData";
@@ -115,7 +115,6 @@ export default function ProfilePage() {
             handleClose={handleClose}
             handleAvatarUpdate={handleAvatarUpdate}
           />
-
           <Box sx={{ display: "flex", flexDirection: { xs: "column" } }}>
             <Box
               sx={{
@@ -126,10 +125,14 @@ export default function ProfilePage() {
               <Typography sx={{ fontSize: "1.3rem", fontWeight: 600 }}>
                 <Person sx={{ marginRight: "1rem" }} /> {name}
               </Typography>
-              <Typography sx={{ fontSize: "1.3rem" }}>
+              <Typography sx={{ fontSize: "1.1rem" }}>
                 <AlternateEmail sx={{ marginRight: "1rem" }} />
                 {profile.email}
               </Typography>
+              <Box sx={{marginTop: '4rem'}}>
+                  {profile.venueManager && <NewVenueModal />}
+              </Box>
+            
             </Box>
           </Box>
         </Box>
@@ -141,66 +144,8 @@ export default function ProfilePage() {
               justifyContent: { md: "space-around" },
             }}
           >
-            {profile.venueManager && (
-              <Box
-                sx={{
-                  display: "flex",
-                  paddingY: "2rem",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "15rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      padding: "2rem",
-                      fontSize: "1.3rem",
-                      fontWeight: 200,
-                    }}
-                  >
-                    <Home
-                      sx={{
-                        color: "primary.main",
-                        marginRight: "1rem",
-                        textAlign: "center",
-                      }}
-                    />
-                    Your venues
-                  </Typography>
-                  <NewVenueModal />
-                </Box>
-                <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                  {profile._count.venues > 0 ? (
-                    <RenderVenues />
-                  ) : (
-                    <Box sx={{ padding: "2rem" }}>
-                      <Typography>You don't have any venues</Typography>
-                    </Box>
-                  )}
-                </Box>
-              </Box>
-            )}
-            {!profile.venueManager &&  (
-              <Box
-              >
-                <Typography
-                  sx={{
-                    padding: "2rem",
-                    fontSize: "1.3rem",
-                    fontWeight: 200,
-                  }}
-                >
-                  <Home sx={{ color: "primary.main", marginRight: "1rem" }} />
-                  Your bookings
-                </Typography>
-                <RenderBookings profile={profile} />
-              </Box>
-            )}
+            {profile.venueManager && <RenderVenues />}
+            {!profile.venueManager && <RenderBookings profile={profile} />}
           </Box>
         </Box>
       </Box>

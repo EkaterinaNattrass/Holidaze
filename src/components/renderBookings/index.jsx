@@ -16,7 +16,7 @@ import { convertISOToDate } from "../../utils/converts";
 import { getData } from "../../utils/getData";
 import { loadFromLocalStorage } from "../../utils/localStorage";
 
-export default function RenderBookings({ profile }) {
+export default function RenderBookings() {
   const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] =
     useState(false);
   const [bookings, setBookings] = useState([]);
@@ -41,6 +41,7 @@ export default function RenderBookings({ profile }) {
     try {
       await deleteData(`${API_BASE_URL}holidaze/bookings/${id}`);
       setBookings((prevBookings) => prevBookings.filter((booking) => booking.id !== id));
+      setOpenDeleteConfirmationModal(true);
     } catch (err) {
       console.log(err);
     }
@@ -109,7 +110,7 @@ export default function RenderBookings({ profile }) {
         ))
       ) : (
         <Box>
-          <Typography>There are no bookings yet.</Typography>
+          <Typography sx={{padding: '2rem'}}>There are no bookings yet.</Typography>
         </Box>
       )}
       <FeedbackModal

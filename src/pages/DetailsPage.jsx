@@ -20,7 +20,6 @@ export default function DetailsPage() {
         const result = await response.json();
         const APIdata = result.data;
         setVenue(APIdata);
-        console.log(APIdata);
       } catch (err) {
         setError("Sorry, something went wrong");
       }
@@ -276,13 +275,12 @@ export default function DetailsPage() {
               </Box>
                 <Rating
                   name="read-only"
-                  value={venue.rating}
+                 value={venue.rating !== undefined ? venue.rating : 0}
                   readOnly
                   sx={{ color: "primary.main" }}
                 />
             </Box>
           </Box>
-
           <Paper
             square={false}
             elevation={3}

@@ -8,7 +8,7 @@ export default function ProfilePopover() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpenModalCustomer, setIsOpenModalCustomer] = useState(false);
-  const [isOpenModalManager, setIsOpenModalManager] = useState(false);
+  const [openModalManager, setOpenModalManager] = useState(false);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -30,9 +30,9 @@ export default function ProfilePopover() {
     setAnchorEl(null);
   };
   const handleOpenModalCustomer = () => setIsOpenModalCustomer(true);
-  const handleOpenModalManager = () => setIsOpenModalManager(true);
+  const handleOpenModalManager = () => setOpenModalManager(true);
   const handleCloseModalCustomer = () => setIsOpenModalCustomer(false);
-  const handleCloseModalManager = () => setIsOpenModalManager(false);
+  const handleCloseModalManager = () => setOpenModalManager(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -91,12 +91,12 @@ export default function ProfilePopover() {
               </Box>
               <AuthModalCustomer
                 openModalCustomer={isOpenModalCustomer}
-                handleCloseModalCustomer={handleCloseModalCustomer}
+                handleCloseModal={handleCloseModalCustomer}
                 setIsLoggedIn={setIsLoggedIn}
                 setAnchorEl={setAnchorEl}
               />
               <AuthModalManager
-                openModalManager={isOpenModalManager}
+                openModalManager={openModalManager}
                 handleCloseModalManager={handleCloseModalManager}
                 setIsLoggedIn={setIsLoggedIn}
                 setAnchorEl={setAnchorEl}
