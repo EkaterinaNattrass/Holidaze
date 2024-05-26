@@ -1,7 +1,11 @@
 # Holidaze
 Noroff graduation exam app which allows users both rent out and book holiday venues presented at the website.
 
-![landing page](/relative/path/to/img.jpg?raw=true "Landing Page")
+<img src="Landing_page.png"></img>
+
+## Deployment
+
+[Holidaze website](https://holidaze-ekanat.netlify.app/)
 
 ## User stories
 
@@ -97,4 +101,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 npm run build fails to minify
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
 
