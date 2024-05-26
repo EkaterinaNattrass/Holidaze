@@ -46,7 +46,7 @@ export default function ProfilePage() {
         setProfile(profileData.data);
         setAvatar(profileData.data.avatar);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     getProfile();
@@ -124,7 +124,7 @@ export default function ProfilePage() {
               }}
             >
               <Typography sx={{ fontSize: "1.3rem", fontWeight: 600 }}>
-                <Person sx={{ marginRight: "1rem" }} /> {name}
+                <Person sx={{ marginRight: "1rem" }} /> {profile.name || name}
               </Typography>
               <Typography sx={{ fontSize: "1.1rem" }}>
                 <AlternateEmail sx={{ marginRight: "1rem" }} />

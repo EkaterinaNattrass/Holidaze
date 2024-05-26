@@ -46,6 +46,9 @@ The project was built with:
 - React
 - MUI
 
+## API key
+Before running the app, a Noroff API key must be added as an environment variable, REACT_APP_API_KEY (see [.env_example](.env_example)). The API key can be obtained by following the instructions here: https://docs.noroff.dev/docs/v2/auth/api-key
+
 ## Available Scripts
 In the project directory, you can run:
 
