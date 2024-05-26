@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../../utils/constants";
 import VenueInput from "../venueInput";
 import FeedbackModal from "../feedbackModal";
 
-export default function CreateNewVenue({ handleCloseVenue }) {
+export default function NewVenueForm({ handleCloseVenue }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [mediaUrl, setMediaUrl] = useState("");
@@ -242,12 +242,11 @@ export default function CreateNewVenue({ handleCloseVenue }) {
             label="Pets"
           />
         </Box>
-        <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button type="submit" variant="contained" sx={{ marginLeft: "5rem" }}>
-          Create
-        </Button>
+            Create
+          </Button>
         </Box>
-        
       </form>
       <FeedbackModal
         isOpen={openConfirmationModal}

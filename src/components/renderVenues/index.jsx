@@ -18,7 +18,6 @@ import FeedbackModal from "../feedbackModal";
 import { Link } from "react-router-dom";
 import UpdateVenueForm from "../updateVenueForm";
 import { convertISOToDate } from "../../utils/converts";
-import NewVenueModal from "../newVenueModal";
 
 export default function RenderVenues() {
   const [venues, setVenues] = useState([]);
@@ -87,10 +86,6 @@ export default function RenderVenues() {
     );
   };
 
-  const addNewVenue = (newVenue) => {
-    setVenues((prevVenues) => [newVenue, ...prevVenues]);
-  };
-
   return (
     <Box
       sx={{
@@ -100,7 +95,6 @@ export default function RenderVenues() {
         justifyContent: "center",
       }}
     >
-      <NewVenueModal addNewVenue={addNewVenue} />
       {venues && venues.length > 0 ? (
         venues.map((venue) => (
           <Box key={venue.id}>

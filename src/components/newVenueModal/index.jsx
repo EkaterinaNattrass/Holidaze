@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Popover, Button } from "@mui/material";
-import NewVenue from "../newVenueForm";
+import NewVenueForm from "../newVenueForm";
 
 export default function NewVenueModal({ addNewVenue }) {
   const [anchorElVenue, setAnchorElVenue] = useState(null);
@@ -24,7 +24,7 @@ export default function NewVenueModal({ addNewVenue }) {
       <Button
         variant="contained"
         onClick={handleClickVenue}
-        sx={{ width: "10rem", height: "3rem", marginTop: "2rem" }}
+        sx={{ width: "10rem", marginTop: "2rem" }}
       >
         New venue
       </Button>
@@ -38,7 +38,7 @@ export default function NewVenueModal({ addNewVenue }) {
           horizontal: "left",
         }}
       >
-        <NewVenue
+        <NewVenueForm
           handleCloseVenue={handleCloseVenue}
           onVenueCreated={handleNewVenueCreated}
         />
