@@ -8,7 +8,6 @@ import { getData } from "../utils/getData";
 import EditAvatar from "../components/editAvatar";
 import RenderVenues from "../components/renderVenues";
 import RenderBookings from "../components/renderBookings";
-import NewVenueModal from "../components/newVenueModal";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState({});
@@ -130,7 +129,7 @@ export default function ProfilePage() {
                 <AlternateEmail sx={{ marginRight: "1rem" }} />
                 {profile.email}
               </Typography>
-              { profile.venueManager ? (<NewVenueModal/>) : (
+              {!profile.venueManager && (
                 <Box sx={{ marginTop: "4rem" }}>
                   <NavLink to="/venues">
                     <Button
