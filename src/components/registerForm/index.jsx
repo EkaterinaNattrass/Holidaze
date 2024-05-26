@@ -158,7 +158,7 @@ export default function RegisterForm({ venueManager }) {
         secondaryText="You are registered now. Please, login using your account details."
         handleOnClick={handleCloseConfirmationModal}
       />
-       <FeedbackModal
+      <FeedbackModal
         isOpen={openErrorModal}
         handleClose={handleCloseErrorModal}
         primaryText="Error"
