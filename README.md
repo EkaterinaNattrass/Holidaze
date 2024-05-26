@@ -29,22 +29,22 @@ Noroff graduation exam app which allows users both rent out and book holiday ven
 
 The project contains:
 
-Landing page - advertises the service with images and describes the essence of the app 
-Home page - renders the venues, features a search bar
-Details page  - shows a venue chosen by id, including three images, the name, description, location, rating and price data, wifi/parking/breakfast/pets availability
-Profile page - features the avatar with possibility to update it, the name and email address of the client; in case of a customer renders their bookings if any, with a delete button to delete a certain booking; in case of a venue manager renders the venues with their bookings, includes the delete and update buttons
-Clients page - renders the reviews by customers
-About us page - tells a story behind the idea
-Services page - gives more details about the way the service operates
-Navbar - has popover modals allowing users to choose if they are a customer/manager and register/login/logout; there is also a link ot their profile (rendered conditionally if they are logged in)
+- Landing page - advertises the service with images and describes the essence of the app 
+- Home page - renders the venues, features a search bar
+- Details page  - shows a venue chosen by id, including three images, the name, description, location, rating and price data, wifi/parking/breakfast/pets availability
+- Profile page - features the avatar with possibility to update it, the name and email address of the client; in case of a customer renders their bookings if any, with a delete button to delete a certain booking; in case of a venue manager renders the venues with their bookings, includes the delete and update buttons
+- Clients page - renders the reviews by customers
+- About us page - tells a story behind the idea
+- Services page - gives more details about the way the service operates
+- Navbar - has popover modals allowing users to choose if they are a customer/manager and register/login/logout; there is also a link ot their profile (rendered conditionally if they are logged in)
 
 ## Tech Stack
 
 The project was built with:
 
-Noroff API application
-React
-MUI
+- Noroff API application
+- React
+- MUI
 
 ## Available Scripts
 In the project directory, you can run:
