@@ -14,7 +14,6 @@ import "@fontsource/roboto/700.css";
 import StoryPage from "./pages/StoryPage";
 import ClientsPage from "./pages/ClientsPage";
 import ServicesPage from "./pages/ServicesPage";
-import ContactsPage from "./pages/ContactsPage";
 import ProfilePage from "./pages/ProfilePage";
 
 const theme = createTheme({
@@ -45,7 +44,6 @@ function App() {
               <Route path="story" element={<StoryPage />} />
               <Route path="clients" element={<ClientsPage />} />
               <Route path="services" element={<ServicesPage />} />
-              <Route path="contacts" element={<ContactsPage />} />
               <Route path="profile/:name" element={<ProfilePage />} />
             </Route>
           </Routes>
