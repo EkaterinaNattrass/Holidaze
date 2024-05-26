@@ -44,6 +44,7 @@ export default function ProfilePage() {
           `${API_BASE_URL}holidaze/profiles/${storedProfile.name}?_bookings=true`
         );
         setProfile(profileData.data);
+        setAvatar(profileData.data.avatar);
       } catch (error) {
         console.log(error);
       }
@@ -87,8 +88,8 @@ export default function ProfilePage() {
             }}
           >
             <img
-              src={profile.avatar?.url}
-              alt={profile.avatar?.alt}
+              src={avatar?.url}
+              alt={avatar?.alt}
               style={{
                 width: "100%",
                 height: "100%",

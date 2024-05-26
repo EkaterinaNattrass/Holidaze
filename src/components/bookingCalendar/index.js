@@ -5,10 +5,9 @@ import { API_BASE_URL } from "../../utils/constants";
 import { postData } from "../../utils/postData";
 import {
   convertToIsoDateInString,
-  convertFromDateToIsoOutput,
   convertIsoDateToNoon,
 } from "../../utils/converts";
-import { Box, Button, TextField, Paper, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import FeedbackModal from "../feedbackModal";
 
 export default function BookingCalendar({ venue, id }) {
