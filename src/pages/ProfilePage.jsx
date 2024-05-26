@@ -6,7 +6,6 @@ import { loadFromLocalStorage } from "../utils/localStorage";
 import { API_BASE_URL } from "../utils/constants";
 import { getData } from "../utils/getData";
 import EditAvatar from "../components/editAvatar";
-import NewVenueModal from "../components/newVenueModal";
 import RenderVenues from "../components/renderVenues";
 import RenderBookings from "../components/renderBookings";
 
@@ -130,10 +129,8 @@ export default function ProfilePage() {
                 <AlternateEmail sx={{ marginRight: "1rem" }} />
                 {profile.email}
               </Typography>
-              <Box sx={{ marginTop: "4rem" }}>
-                {profile.venueManager ? (
-                  <NewVenueModal />
-                ) : (
+              {!profile?.venueManager && (
+                <Box sx={{ marginTop: "4rem" }}>
                   <NavLink to="/venues">
                     <Button
                       variant="contained"
@@ -147,8 +144,8 @@ export default function ProfilePage() {
                       Browse venues
                     </Button>
                   </NavLink>
-                )}
-              </Box>
+                </Box>
+              )}
             </Box>
           </Box>
         </Box>
