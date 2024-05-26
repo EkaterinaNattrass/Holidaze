@@ -12,7 +12,12 @@ export default function RegisterForm({ venueManager }) {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [openErrorModal, setOpenErrorModal] = useState(false);
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
+
+  const handleCloseErrorModal = () => {
+    setOpenErrorModal(false);
+  };
 
   const handleNameChange = (event) => {
     const value = event.target.value;
@@ -63,7 +68,7 @@ export default function RegisterForm({ venueManager }) {
       setOpenConfirmationModal(true);
       saveToLocalStorage("profile", profile.data);
     } catch (error) {
-      console.error("Error", error);
+      setOpenErrorModal(true);
     }
   };
 
@@ -152,6 +157,13 @@ export default function RegisterForm({ venueManager }) {
         primaryText="Success"
         secondaryText="You are registered now. Please, login using your account details."
         handleOnClick={handleCloseConfirmationModal}
+      />
+       <FeedbackModal
+        isOpen={openErrorModal}
+        handleClose={handleCloseErrorModal}
+        primaryText="Error"
+        secondaryText="Register failed, please try again."
+        handleOnClick={handleCloseErrorModal}
       />
     </Box>
   );
